@@ -2,16 +2,27 @@ package com.example.pier.animeinclone;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.example.pier.animeinclone.models.Anime;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private  SliderLayout sliderShow;
+
+    private List<Anime> animeList = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private AdapterType1 mAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +50,31 @@ public class MainActivity extends AppCompatActivity {
 
             sliderShow.addSlider(textSliderView);
         }
+
+        recycleOne();
+    }
+
+    private void recycleOne() {
+        recyclerView = findViewById(R.id.recyclerview1);
+
+        mAdapter = new AdapterType1(animeList, this);
+       // LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        GridLayoutManager mLayoutManager = new GridLayoutManager(this, 3);
+        //RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(mAdapter);
+
+        Anime anime = new Anime("https://i.pinimg.com/736x/80/a7/c8/80a7c89a089f14bca45ef79af56e2eac--one-piece--one-piece-manga.jpg");
+        animeList.add(anime);
+
+        anime = new Anime("https://i.pinimg.com/736x/5f/0e/1e/5f0e1ee14de1815649b12dcd3901f577--book-expo-manga-books.jpg");
+        animeList.add(anime);
+
+        anime = new Anime("https://vignette.wikia.nocookie.net/naruto/images/f/fc/Boruto_Vol_1.png/revision/latest?cb=20160807110342");
+        animeList.add(anime);
+
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
