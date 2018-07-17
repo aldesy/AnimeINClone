@@ -4,4 +4,6 @@
     <string name="label3">Anime Hari Ini</string>
     <string name="label4">Populer</string>
     <string name="label5">Genre</string>
+    <string name="label6">Tahun</string>
+    <string name="label7">Ongoing</string>
 </resources>
