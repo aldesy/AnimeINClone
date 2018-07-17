@@ -12,7 +12,7 @@
         android:title="@string/title_cari" />
 
     <item
-        android:id="@+id/navigation_cart"
+        android:id="@+id/navigation_schedule"
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/title_cart" />
 

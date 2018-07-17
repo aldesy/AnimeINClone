@@ -8,27 +8,16 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
-
-import com.daimajia.slider.library.SliderLayout;
-import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
-import com.example.pier.animeinclone.models.Anime;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements
         HomeFragment.OnFragmentInteractionListener,
-        SearchFragment.OnFragmentInteractionListener{
+        SearchFragment.OnFragmentInteractionListener,
+        ScheduleFragment.OnFragmentInteractionListener{
 
     private Fragment homeFragment;
     private Fragment searchFragment;
+    private Fragment scheduleFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements
 
         homeFragment = HomeFragment.newInstance("","");
         searchFragment = SearchFragment.newInstance("","");
+        scheduleFragment = ScheduleFragment.newInstance("","");
 
         loadFragment(homeFragment);
     }
@@ -73,8 +63,8 @@ public class MainActivity extends AppCompatActivity implements
                     fragment = searchFragment;
                     loadFragment(fragment);
                     return true;
-                case R.id.navigation_cart:
-                    fragment = searchFragment;
+                case R.id.navigation_schedule:
+                    fragment = scheduleFragment;
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_profile:
