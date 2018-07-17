@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Anime> animeList = new ArrayList<>();
     private List<Anime> animeList2 = new ArrayList<>();
     private List<Anime> animeList3 = new ArrayList<>();
+    private List<Anime> animeList4 = new ArrayList<>();
     private RecyclerView recyclerView;
     private AdapterType1 mAdapter;
     @Override
@@ -56,6 +57,30 @@ public class MainActivity extends AppCompatActivity {
         recycleOne();
         recycleTwo();
         recycleThree();
+        recycleFour();
+    }
+
+    private void recycleFour() {
+        RecyclerView recyclerView4 = findViewById(R.id.recyclerview4);
+        recyclerView4.setNestedScrollingEnabled(false);
+        AdapterType2 mAdapter4 = new AdapterType2(animeList4, this);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        // GridLayoutManager mLayoutManager = new GridLayoutManager(this, 3);
+        //RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView4.setLayoutManager(mLayoutManager);
+        recyclerView4.setItemAnimator(new DefaultItemAnimator());
+        recyclerView4.setAdapter(mAdapter4);
+
+        Anime anime = new Anime("https://i.pinimg.com/736x/80/a7/c8/80a7c89a089f14bca45ef79af56e2eac--one-piece--one-piece-manga.jpg");
+        animeList4.add(anime);
+
+        anime = new Anime("https://i.pinimg.com/736x/5f/0e/1e/5f0e1ee14de1815649b12dcd3901f577--book-expo-manga-books.jpg");
+        animeList4.add(anime);
+
+        anime = new Anime("https://vignette.wikia.nocookie.net/naruto/images/f/fc/Boruto_Vol_1.png/revision/latest?cb=20160807110342");
+        animeList4.add(anime);
+
+        mAdapter4.notifyDataSetChanged();
     }
 
     private void recycleThree() {
