@@ -26,7 +26,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements
         HomeFragment.OnFragmentInteractionListener,
         SearchFragment.OnFragmentInteractionListener{
-    //TODO bottomnavbar
+
     private  SliderLayout sliderShow;
 
     private List<Anime> animeList = new ArrayList<>();
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
-        loadFragment(new HomeFragment());
+        loadFragment(HomeFragment.newInstance("",""));
         // initSlider();
 
       //  recycleOne();
@@ -97,19 +97,19 @@ public class MainActivity extends AppCompatActivity implements
             Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.navigation_beranda:
-                    fragment = new HomeFragment();
+                    fragment = HomeFragment.newInstance("","");
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_cari:
-                    fragment = new SearchFragment();
+                    fragment = SearchFragment.newInstance("","");
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_cart:
-                    fragment = new SearchFragment();
+                    fragment = SearchFragment.newInstance("","");
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_profile:
-                    fragment = new SearchFragment();
+                    fragment = SearchFragment.newInstance("","");
                     loadFragment(fragment);
                     return true;
             }
@@ -117,98 +117,6 @@ public class MainActivity extends AppCompatActivity implements
             return false;
         }
     };
-
-    private void recycleFour() {
-        RecyclerView recyclerView4 = findViewById(R.id.recyclerview4);
-        recyclerView4.setNestedScrollingEnabled(false);
-        AdapterType2 mAdapter4 = new AdapterType2(animeList4, this);
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        // GridLayoutManager mLayoutManager = new GridLayoutManager(this, 3);
-        //RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView4.setLayoutManager(mLayoutManager);
-        recyclerView4.setItemAnimator(new DefaultItemAnimator());
-        recyclerView4.setAdapter(mAdapter4);
-
-        Anime anime = new Anime("https://i.pinimg.com/736x/80/a7/c8/80a7c89a089f14bca45ef79af56e2eac--one-piece--one-piece-manga.jpg");
-        animeList4.add(anime);
-
-        anime = new Anime("https://i.pinimg.com/736x/5f/0e/1e/5f0e1ee14de1815649b12dcd3901f577--book-expo-manga-books.jpg");
-        animeList4.add(anime);
-
-        anime = new Anime("https://vignette.wikia.nocookie.net/naruto/images/f/fc/Boruto_Vol_1.png/revision/latest?cb=20160807110342");
-        animeList4.add(anime);
-
-        mAdapter4.notifyDataSetChanged();
-    }
-
-    private void recycleThree() {
-        RecyclerView recyclerView3 = findViewById(R.id.recyclerview3);
-        recyclerView3.setNestedScrollingEnabled(false);
-        AdapterType1 mAdapter3 = new AdapterType1(animeList3, this);
-        // LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        GridLayoutManager mLayoutManager = new GridLayoutManager(this, 3);
-        //RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView3.setLayoutManager(mLayoutManager);
-        recyclerView3.setItemAnimator(new DefaultItemAnimator());
-        recyclerView3.setAdapter(mAdapter3);
-
-        Anime anime = new Anime("https://i.pinimg.com/736x/80/a7/c8/80a7c89a089f14bca45ef79af56e2eac--one-piece--one-piece-manga.jpg");
-        animeList3.add(anime);
-
-        anime = new Anime("https://i.pinimg.com/736x/5f/0e/1e/5f0e1ee14de1815649b12dcd3901f577--book-expo-manga-books.jpg");
-        animeList3.add(anime);
-
-        anime = new Anime("https://vignette.wikia.nocookie.net/naruto/images/f/fc/Boruto_Vol_1.png/revision/latest?cb=20160807110342");
-        animeList3.add(anime);
-
-        mAdapter3.notifyDataSetChanged();
-    }
-
-    private void recycleTwo() {
-        RecyclerView recyclerView2 = findViewById(R.id.recyclerview2);
-        recyclerView2.setNestedScrollingEnabled(false);
-        AdapterType2 mAdapter2 = new AdapterType2(animeList, this);
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-       // GridLayoutManager mLayoutManager = new GridLayoutManager(this, 3);
-        //RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView2.setLayoutManager(mLayoutManager);
-        recyclerView2.setItemAnimator(new DefaultItemAnimator());
-        recyclerView2.setAdapter(mAdapter2);
-
-        Anime anime = new Anime("https://i.pinimg.com/736x/80/a7/c8/80a7c89a089f14bca45ef79af56e2eac--one-piece--one-piece-manga.jpg");
-        animeList2.add(anime);
-
-        anime = new Anime("https://i.pinimg.com/736x/5f/0e/1e/5f0e1ee14de1815649b12dcd3901f577--book-expo-manga-books.jpg");
-        animeList2.add(anime);
-
-        anime = new Anime("https://vignette.wikia.nocookie.net/naruto/images/f/fc/Boruto_Vol_1.png/revision/latest?cb=20160807110342");
-        animeList2.add(anime);
-
-        mAdapter2.notifyDataSetChanged();
-    }
-
-    private void recycleOne() {
-        recyclerView = findViewById(R.id.recyclerview1);
-        recyclerView.setNestedScrollingEnabled(false);
-        mAdapter = new AdapterType1(animeList, this);
-       // LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        GridLayoutManager mLayoutManager = new GridLayoutManager(this, 3);
-        //RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
-
-        Anime anime = new Anime("https://i.pinimg.com/736x/80/a7/c8/80a7c89a089f14bca45ef79af56e2eac--one-piece--one-piece-manga.jpg");
-        animeList.add(anime);
-
-        anime = new Anime("https://i.pinimg.com/736x/5f/0e/1e/5f0e1ee14de1815649b12dcd3901f577--book-expo-manga-books.jpg");
-        animeList.add(anime);
-
-        anime = new Anime("https://vignette.wikia.nocookie.net/naruto/images/f/fc/Boruto_Vol_1.png/revision/latest?cb=20160807110342");
-        animeList.add(anime);
-
-        mAdapter.notifyDataSetChanged();
-    }
 
     @Override
     protected void onStop() {
