@@ -60,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView2 = findViewById(R.id.recyclerview2);
         recyclerView2.setNestedScrollingEnabled(false);
         AdapterType2 mAdapter2 = new AdapterType2(animeList, this);
-        // LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        GridLayoutManager mLayoutManager = new GridLayoutManager(this, 3);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+       // GridLayoutManager mLayoutManager = new GridLayoutManager(this, 3);
         //RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView2.setLayoutManager(mLayoutManager);
         recyclerView2.setItemAnimator(new DefaultItemAnimator());
