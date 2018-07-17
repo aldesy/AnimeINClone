@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">AnimeIN Clone</string>
 
-    <string name="title_shop">Shop</string>
-    <string name="title_gifts">Gifts</string>
+    <string name="title_beranda">Beranda</string>
+    <string name="title_cari">Cari</string>
     <string name="title_cart">Cart</string>
     <string name="title_profile">Profile</string>
 
