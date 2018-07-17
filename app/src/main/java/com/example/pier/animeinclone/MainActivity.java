@@ -1,11 +1,17 @@
 package com.example.pier.animeinclone;
 
+import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
@@ -16,8 +22,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity implements
+        HomeFragment.OnFragmentInteractionListener,
+        SearchFragment.OnFragmentInteractionListener{
+    //TODO bottomnavbar
     private  SliderLayout sliderShow;
 
     private List<Anime> animeList = new ArrayList<>();
@@ -29,8 +37,28 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.tesnavbar);
 
+        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        loadFragment(new HomeFragment());
+        // initSlider();
+
+      //  recycleOne();
+      //  recycleTwo();
+      //  recycleThree();
+      //  recycleFour();
+    }
+
+    private void loadFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    private void initSlider() {
         sliderShow = findViewById(R.id.slider);
 
         HashMap<String,String> url_maps = new HashMap<>();
@@ -44,21 +72,50 @@ public class MainActivity extends AppCompatActivity {
                     .description(name)
                     .image(url_maps.get(name))
                     .setScaleType(BaseSliderView.ScaleType.Fit);
-                //    .setOnSliderClickListener(this);
+            //    .setOnSliderClickListener(this);
 
             //add your extra information
-         //   textSliderView.bundle(new Bundle());
-         //   textSliderView.getBundle()
-          //          .putString("extra",name);
+            //   textSliderView.bundle(new Bundle());
+            //   textSliderView.getBundle()
+            //          .putString("extra",name);
 
             sliderShow.addSlider(textSliderView);
         }
-
-        recycleOne();
-        recycleTwo();
-        recycleThree();
-        recycleFour();
     }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment fragment;
+            switch (item.getItemId()) {
+                case R.id.navigation_shop:
+                    fragment = new HomeFragment();
+                    loadFragment(fragment);
+                    return true;
+                case R.id.navigation_gifts:
+                    fragment = new SearchFragment();
+                    loadFragment(fragment);
+                    return true;
+                case R.id.navigation_cart:
+                    fragment = new HomeFragment();
+                    loadFragment(fragment);
+                    return true;
+                case R.id.navigation_profile:
+                    fragment = new SearchFragment();
+                    loadFragment(fragment);
+                    return true;
+            }
+
+            return false;
+        }
+    };
 
     private void recycleFour() {
         RecyclerView recyclerView4 = findViewById(R.id.recyclerview4);
@@ -154,7 +211,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-        sliderShow.stopAutoCycle();
+        try
+        {
+            sliderShow.stopAutoCycle();
+        }catch (NullPointerException e)
+        {
+
+        }
         super.onStop();
     }
 }
