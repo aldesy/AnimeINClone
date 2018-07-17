@@ -96,16 +96,16 @@ public class MainActivity extends AppCompatActivity implements
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment fragment;
             switch (item.getItemId()) {
-                case R.id.navigation_shop:
+                case R.id.navigation_beranda:
                     fragment = new HomeFragment();
                     loadFragment(fragment);
                     return true;
-                case R.id.navigation_gifts:
+                case R.id.navigation_cari:
                     fragment = new SearchFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_cart:
-                    fragment = new HomeFragment();
+                    fragment = new SearchFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_profile:

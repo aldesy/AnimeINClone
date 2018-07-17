@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,7 +84,9 @@ public class HomeFragment extends Fragment {
         context = getActivity();
         initSlider(rootView);
         recycleOne(rootView);
-
+        recycleTwo(rootView);
+        recycleThree(rootView);
+        recycleFour(rootView);
         return rootView;
     }
 
@@ -95,6 +98,81 @@ public class HomeFragment extends Fragment {
         AdapterType1 mAdapter = new AdapterType1(animeList, context);
         // LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         GridLayoutManager mLayoutManager = new GridLayoutManager(context, 3);
+        //RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(mAdapter);
+
+        Anime anime = new Anime("https://i.pinimg.com/736x/80/a7/c8/80a7c89a089f14bca45ef79af56e2eac--one-piece--one-piece-manga.jpg");
+        animeList.add(anime);
+
+        anime = new Anime("https://i.pinimg.com/736x/5f/0e/1e/5f0e1ee14de1815649b12dcd3901f577--book-expo-manga-books.jpg");
+        animeList.add(anime);
+
+        anime = new Anime("https://vignette.wikia.nocookie.net/naruto/images/f/fc/Boruto_Vol_1.png/revision/latest?cb=20160807110342");
+        animeList.add(anime);
+
+        mAdapter.notifyDataSetChanged();
+    }
+
+    private void recycleTwo(View rootview) {
+        RecyclerView recyclerView = rootview.findViewById(R.id.recyclerview2);
+        recyclerView.setNestedScrollingEnabled(false);
+
+        List<Anime> animeList = new ArrayList<>();
+        AdapterType2 mAdapter = new AdapterType2(animeList, context);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+        // GridLayoutManager mLayoutManager = new GridLayoutManager(this, 3);
+        //RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(mAdapter);
+
+        Anime anime = new Anime("https://i.pinimg.com/736x/80/a7/c8/80a7c89a089f14bca45ef79af56e2eac--one-piece--one-piece-manga.jpg");
+        animeList.add(anime);
+
+        anime = new Anime("https://i.pinimg.com/736x/5f/0e/1e/5f0e1ee14de1815649b12dcd3901f577--book-expo-manga-books.jpg");
+        animeList.add(anime);
+
+        anime = new Anime("https://vignette.wikia.nocookie.net/naruto/images/f/fc/Boruto_Vol_1.png/revision/latest?cb=20160807110342");
+        animeList.add(anime);
+
+        mAdapter.notifyDataSetChanged();
+    }
+
+    private void recycleThree(View rootview) {
+        RecyclerView recyclerView = rootview.findViewById(R.id.recyclerview3);
+        recyclerView.setNestedScrollingEnabled(false);
+
+        List<Anime> animeList = new ArrayList<>();
+        AdapterType1 mAdapter = new AdapterType1(animeList, context);
+        // LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        GridLayoutManager mLayoutManager = new GridLayoutManager(context, 3);
+        //RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(mAdapter);
+
+        Anime anime = new Anime("https://i.pinimg.com/736x/80/a7/c8/80a7c89a089f14bca45ef79af56e2eac--one-piece--one-piece-manga.jpg");
+        animeList.add(anime);
+
+        anime = new Anime("https://i.pinimg.com/736x/5f/0e/1e/5f0e1ee14de1815649b12dcd3901f577--book-expo-manga-books.jpg");
+        animeList.add(anime);
+
+        anime = new Anime("https://vignette.wikia.nocookie.net/naruto/images/f/fc/Boruto_Vol_1.png/revision/latest?cb=20160807110342");
+        animeList.add(anime);
+
+        mAdapter.notifyDataSetChanged();
+    }
+
+    private void recycleFour(View rootview) {
+        RecyclerView recyclerView = rootview.findViewById(R.id.recyclerview4);
+        recyclerView.setNestedScrollingEnabled(false);
+
+        List<Anime> animeList = new ArrayList<>();
+        AdapterType2 mAdapter = new AdapterType2(animeList, context);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+        // GridLayoutManager mLayoutManager = new GridLayoutManager(this, 3);
         //RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
