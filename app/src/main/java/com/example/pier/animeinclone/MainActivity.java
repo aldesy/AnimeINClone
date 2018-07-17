@@ -27,14 +27,9 @@ public class MainActivity extends AppCompatActivity implements
         HomeFragment.OnFragmentInteractionListener,
         SearchFragment.OnFragmentInteractionListener{
 
-    private  SliderLayout sliderShow;
+    private Fragment homeFragment;
+    private Fragment searchFragment;
 
-    private List<Anime> animeList = new ArrayList<>();
-    private List<Anime> animeList2 = new ArrayList<>();
-    private List<Anime> animeList3 = new ArrayList<>();
-    private List<Anime> animeList4 = new ArrayList<>();
-    private RecyclerView recyclerView;
-    private AdapterType1 mAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +38,13 @@ public class MainActivity extends AppCompatActivity implements
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
-        loadFragment(HomeFragment.newInstance("",""));
+
+        homeFragment = HomeFragment.newInstance("","");
+        searchFragment = SearchFragment.newInstance("","");
+
+        loadFragment(homeFragment);
     }
+
 
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -66,19 +66,19 @@ public class MainActivity extends AppCompatActivity implements
             Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.navigation_beranda:
-                    fragment = HomeFragment.newInstance("","");
+                    fragment = homeFragment;
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_cari:
-                    fragment = SearchFragment.newInstance("","");
+                    fragment = searchFragment;
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_cart:
-                    fragment = SearchFragment.newInstance("","");
+                    fragment = searchFragment;
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_profile:
-                    fragment = SearchFragment.newInstance("","");
+                    fragment = searchFragment;
                     loadFragment(fragment);
                     return true;
             }
@@ -89,13 +89,8 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     protected void onStop() {
-        try
-        {
-            sliderShow.stopAutoCycle();
-        }catch (NullPointerException e)
-        {
-
-        }
         super.onStop();
     }
+
+
 }
