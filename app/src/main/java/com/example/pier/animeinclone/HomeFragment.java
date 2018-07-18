@@ -8,6 +8,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +18,19 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.pier.animeinclone.models.Anime;
+import com.example.pier.animeinclone.models.Result;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 /**
@@ -88,7 +98,33 @@ public class HomeFragment extends Fragment {
         recycleTwo(rootView);
         recycleThree(rootView);
         recycleFour(rootView);
+
+        initRetrofit();
         return rootView;
+    }
+
+    private void initRetrofit() {
+
+
+        AnimeInterface service = RetrofitClientInstance.getRetrofitInstance().create(AnimeInterface.class);
+
+        Call<Result> result = service.getResultInfo();
+        result.enqueue(new Callback<Result>() {
+            @Override
+            public void onResponse(Call<Result> call, Response<Result> response) {
+                try {
+                    //Toast.makeText(context," Success "+response.body(),Toast.LENGTH_SHORT).show();
+                    Log.e("BACA",""+ response.body().getData().get(0).getTitle());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Result> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 
     private void recycleOne(View rootview) {
