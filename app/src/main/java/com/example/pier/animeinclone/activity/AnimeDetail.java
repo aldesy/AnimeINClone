@@ -30,14 +30,12 @@ public class AnimeDetail extends AppCompatActivity {
     private Animes anime;
 
     private TextView txtTitle;
-    private View rootView;
     private ImageView imgBackground;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anime_detail);
-
-        rootView = findViewById(R.id.rootView);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         txtTitle = findViewById(R.id.txtTitle);
         imgBackground = findViewById(R.id.imgBackground);
 
@@ -76,23 +74,9 @@ public class AnimeDetail extends AppCompatActivity {
         });
     }
 
-    private void setBackgroundActivity() {
-        Picasso.with(this).load(anime.getImgbackground()).centerCrop().fit().into(new Target(){
-
-            @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                rootView.setBackground(new BitmapDrawable(getResources(), bitmap));
-            }
-
-            @Override
-            public void onBitmapFailed(final Drawable errorDrawable) {
-                Log.d("TAG", "FAILED");
-            }
-
-            @Override
-            public void onPrepareLoad(final Drawable placeHolderDrawable) {
-                Log.d("TAG", "Prepare Load");
-            }
-        });
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }
