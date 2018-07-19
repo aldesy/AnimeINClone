@@ -92,11 +92,41 @@ public class HomeFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_home, container, false);
         context = getActivity();
         initSlider();
-        initRetrofit();
+        //initRetrofit2();
+        getAllAnimes();
         return rootView;
     }
+    private void getAnimeByID(int animeid) {
 
-    private void initRetrofit() {
+        AnimeInterface service = RetrofitClientInstance.getRetrofitInstance().create(AnimeInterface.class);
+
+        Call<Result> result = service.getAnimeByID(animeid);
+        result.enqueue(new Callback<Result>() {
+            @Override
+            public void onResponse(Call<Result> call, Response<Result> response) {
+                try {
+                    Result res = response.body();
+                    if(res.getSuccess())
+                    {
+                        animes = new ArrayList<>(res.getData());
+                        recycleOne();
+                        recycleTwo();
+                        recycleThree();
+                        recycleFour();
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Result> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    private void getAllAnimes() {
 
         AnimeInterface service = RetrofitClientInstance.getRetrofitInstance().create(AnimeInterface.class);
 
