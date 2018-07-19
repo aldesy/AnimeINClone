@@ -51,13 +51,13 @@
 
             <RatingBar
                 android:id="@+id/ratingBar"
+                style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:numStars="5"
                 android:rating="3"
-                android:theme="@style/RatingBarStyle"
                 android:stepSize="0.5"
-                style="?android:attr/ratingBarStyleSmall"
+                android:theme="@style/RatingBarStyle"
                 app:layout_constraintLeft_toLeftOf="@+id/txtTitle"
                 app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
 
@@ -91,7 +91,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/txtSelengkapnya"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Selengkapnya"
@@ -112,11 +112,11 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/txtStatus"
-                app:layout_constraintStart_toStartOf="@+id/textView5"
+                app:layout_constraintStart_toStartOf="@+id/txtSelengkapnya"
                 app:layout_constraintTop_toTopOf="@+id/txtStatus" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView2"
+                android:id="@+id/recyclerEpisode"
                 android:layout_width="match_parent"
                 android:layout_height="368dp"
                 android:layout_marginTop="180dp"
@@ -142,7 +142,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/recyclerView2"
+                app:layout_constraintBottom_toTopOf="@+id/recyclerEpisode"
                 app:layout_constraintEnd_toEndOf="parent" />
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
