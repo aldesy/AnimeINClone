@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -43,8 +44,6 @@ import retrofit2.Response;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment implements AnimeCallback {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
     private Context context;
     private View rootView;
@@ -53,7 +52,6 @@ public class HomeFragment extends Fragment implements AnimeCallback {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -71,7 +69,6 @@ public class HomeFragment extends Fragment implements AnimeCallback {
      * @param param2 Parameter 2.
      * @return A new instance of fragment HomeFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
@@ -91,7 +88,7 @@ public class HomeFragment extends Fragment implements AnimeCallback {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_home, container, false);
@@ -109,11 +106,10 @@ public class HomeFragment extends Fragment implements AnimeCallback {
         Call<Result> result = service.getResultInfo();
         result.enqueue(new Callback<Result>() {
             @Override
-            public void onResponse(Call<Result> call, Response<Result> response) {
+            public void onResponse(@NonNull Call<Result> call, @NonNull Response<Result> response) {
                 try {
                     Result res = response.body();
-                    if(res.getSuccess())
-                    {
+                    if (res != null && res.getSuccess()) {
                         animes = new ArrayList<>(res.getData());
                         recycleOne();
                         recycleTwo();
@@ -126,7 +122,7 @@ public class HomeFragment extends Fragment implements AnimeCallback {
             }
 
             @Override
-            public void onFailure(Call<Result> call, Throwable t) {
+            public void onFailure(@NonNull Call<Result> call, @NonNull Throwable t) {
                 t.printStackTrace();
             }
         });
@@ -216,7 +212,6 @@ public class HomeFragment extends Fragment implements AnimeCallback {
             sliderShow.addSlider(textSliderView);
         }
     }
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -261,7 +256,6 @@ public class HomeFragment extends Fragment implements AnimeCallback {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 
@@ -269,13 +263,13 @@ public class HomeFragment extends Fragment implements AnimeCallback {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (savedInstanceState != null) {
-            //Restore the fragment's state here
-        }
+//        if (savedInstanceState != null) {
+//            //Restore the fragment's state here
+//        }
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
         //Save the fragment's state here
