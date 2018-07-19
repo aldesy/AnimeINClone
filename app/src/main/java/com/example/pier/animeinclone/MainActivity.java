@@ -1,5 +1,6 @@
 package com.example.pier.animeinclone;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.bottomnavigation.LabelVisibilityMode;
@@ -9,6 +10,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.example.pier.animeinclone.activity.AnimeDetail;
 
 public class MainActivity extends AppCompatActivity implements
         HomeFragment.OnFragmentInteractionListener,
@@ -35,7 +39,25 @@ public class MainActivity extends AppCompatActivity implements
         loadFragment(homeFragment);
     }
 
+    public void SedangHangat(View view)
+    {
+        ((HomeFragment)homeFragment).OnClickItem(3);
+    }
 
+    public void BaruDirilis(View view)
+    {
+        ((HomeFragment)homeFragment).OnClickItem(3);
+    }
+
+    public void AnimeHariIni(View view)
+    {
+        ((HomeFragment)homeFragment).OnClickItem(3);
+    }
+
+    public void Populer(View view)
+    {
+        ((HomeFragment)homeFragment).OnClickItem(3);
+    }
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container, fragment);

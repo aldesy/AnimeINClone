@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".HomeFragment">
+    tools:context=".MainActivity">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -43,6 +43,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
+                        android:onClick="SedangHangat"
                         android:text="@string/label1"
                         android:textColor="@color/label1"
                         android:textSize="18sp"
@@ -71,6 +72,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
+                        android:onClick="BaruDirilis"
                         android:text="@string/label2"
                         android:textColor="@color/label1"
                         android:textSize="18sp"
@@ -99,6 +101,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
+                        android:onClick="AnimeHariIni"
                         android:text="@string/label3"
                         android:textColor="@color/label1"
                         android:textSize="18sp"
@@ -127,6 +130,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
+                        android:onClick="Populer"
                         android:text="@string/label4"
                         android:textColor="@color/label1"
                         android:textSize="18sp"
@@ -145,6 +149,7 @@
 
             </LinearLayout>
         </ScrollView>
+
     </android.support.constraint.ConstraintLayout>
 
 </FrameLayout>
