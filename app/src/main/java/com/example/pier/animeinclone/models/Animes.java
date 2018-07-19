@@ -1,5 +1,6 @@
 package com.example.pier.animeinclone.models;
 
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -26,6 +27,9 @@ public class Animes {
     @SerializedName("view")
     @Expose
     private String view;
+    @SerializedName("episodes")
+    @Expose
+    private List<Episode> episodes = null;
 
     public String getAnimeid() {
         return animeid;
@@ -81,6 +85,14 @@ public class Animes {
 
     public void setView(String view) {
         this.view = view;
+    }
+
+    public List<Episode> getEpisodes() {
+        return episodes;
+    }
+
+    public void setEpisodes(List<Episode> episodes) {
+        this.episodes = episodes;
     }
 
 }

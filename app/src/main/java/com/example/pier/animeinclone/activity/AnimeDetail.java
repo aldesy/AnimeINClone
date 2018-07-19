@@ -58,7 +58,7 @@ public class AnimeDetail extends AppCompatActivity {
                     if(res.getSuccess() && res.getData().size() > 0)
                     {
                         anime = res.getData().get(0);
-                        txtTitle.setText(anime.getTitle());
+                        txtTitle.setText(""+anime.getEpisodes().size());
                         Picasso.with(AnimeDetail.this).load(anime.getImgbackground()).into(imgBackground);
                         //setBackgroundActivity();
                     }
