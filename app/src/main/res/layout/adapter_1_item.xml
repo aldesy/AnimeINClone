@@ -25,6 +25,22 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
+            android:id="@+id/txtStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/anime_status_pos"
+            android:fontFamily="sans-serif"
+            android:padding="5dp"
+            android:text="ONGOING"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/img"
+            app:layout_constraintEnd_toEndOf="@+id/img"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/img"
+            app:layout_constraintTop_toTopOf="@+id/img"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
             android:id="@+id/txtGenre"
             android:layout_width="103dp"
             android:layout_height="wrap_content"

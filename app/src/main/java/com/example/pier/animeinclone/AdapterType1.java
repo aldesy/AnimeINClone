@@ -23,13 +23,14 @@ public class AdapterType1 extends RecyclerView.Adapter<AdapterType1.MyViewHolder
     public class MyViewHolder extends RecyclerView.ViewHolder {
        // public TextView title, year, genre;
         public ImageView imageView;
-        public TextView title, txtViewsCount;
+        public TextView title, txtViewsCount, txtStatus;
 
         public MyViewHolder(View view) {
             super(view);
             imageView = view.findViewById(R.id.img);
             title = view.findViewById(R.id.txtTitle);
             txtViewsCount = view.findViewById(R.id.txtViews);
+            txtStatus = view.findViewById(R.id.txtStatus);
         }
     }
 
@@ -63,6 +64,18 @@ public class AdapterType1 extends RecyclerView.Adapter<AdapterType1.MyViewHolder
         holder.imageView.setOnClickListener(clickListener);
         holder.title.setOnClickListener(clickListener);
         holder.txtViewsCount.setOnClickListener(clickListener);
+        holder.txtStatus.setOnClickListener(clickListener);
+
+        if (anime.getStatus().equals("1"))
+        {
+            holder.txtStatus.setBackgroundColor(context.getResources().getColor(R.color.anime_status_pos));
+            holder.txtStatus.setText("ONGOING");
+        }
+        else
+        {
+            holder.txtStatus.setBackgroundColor(context.getResources().getColor(R.color.anime_status_neg));
+            holder.txtStatus.setText("FINISHED");
+        }
     }
 
     @Override
