@@ -12,11 +12,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.pier.animeinclone.models.Anime;
+import com.example.pier.animeinclone.models.AnimeCallback;
 import com.example.pier.animeinclone.models.Animes;
 import com.example.pier.animeinclone.models.Result;
 
@@ -37,7 +39,7 @@ import retrofit2.Response;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements AnimeCallback {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
@@ -160,7 +162,7 @@ public class HomeFragment extends Fragment {
         RecyclerView recyclerView = rootView.findViewById(R.id.recyclerview1);
         recyclerView.setNestedScrollingEnabled(false);
 
-        AdapterType1 mAdapter = new AdapterType1(animes, context);
+        AdapterType1 mAdapter = new AdapterType1(animes, context, this);
         // LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         GridLayoutManager mLayoutManager = new GridLayoutManager(context, 3);
         //RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -190,7 +192,7 @@ public class HomeFragment extends Fragment {
         RecyclerView recyclerView = rootView.findViewById(R.id.recyclerview3);
         recyclerView.setNestedScrollingEnabled(false);
 
-        AdapterType1 mAdapter = new AdapterType1(animes, context);
+        AdapterType1 mAdapter = new AdapterType1(animes, context, this);
         // LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         GridLayoutManager mLayoutManager = new GridLayoutManager(context, 3);
         //RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -263,6 +265,13 @@ public class HomeFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+    @Override
+    public void OnClickItem(int animeid) {
+        Toast.makeText(context, "Anime ID : "+animeid,
+                Toast.LENGTH_SHORT).show();
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this
