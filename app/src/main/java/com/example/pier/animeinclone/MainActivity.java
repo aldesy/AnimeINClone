@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements
     private Fragment homeFragment;
     private Fragment searchFragment;
     private Fragment scheduleFragment;
+    private Fragment currentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements
         homeFragment = HomeFragment.newInstance("","");
         searchFragment = SearchFragment.newInstance("","");
         scheduleFragment = ScheduleFragment.newInstance("","");
-
         loadFragment(homeFragment);
     }
 
@@ -60,9 +60,17 @@ public class MainActivity extends AppCompatActivity implements
     }
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_container, fragment);
-        transaction.addToBackStack(null);
+        if(!fragment.isAdded())
+        {
+            transaction.add(R.id.frame_container, fragment);
+        }
+        else
+        {
+            transaction.show(fragment);
+        }
+        if(currentFragment != null) transaction.hide(currentFragment);
         transaction.commit();
+        currentFragment = fragment;
     }
 
     @Override
