@@ -12,15 +12,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.pier.animeinclone.models.Anime;
+import com.example.pier.animeinclone.models.Animes;
 import com.example.pier.animeinclone.models.Result;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,8 +27,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 /**
@@ -46,6 +42,8 @@ public class HomeFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
     private Context context;
+    private View rootView;
+    private List<Animes> animes;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -91,20 +89,14 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        rootView = inflater.inflate(R.layout.fragment_home, container, false);
         context = getActivity();
-        initSlider(rootView);
-        recycleOne(rootView);
-        recycleTwo(rootView);
-        recycleThree(rootView);
-        recycleFour(rootView);
-
+        initSlider();
         initRetrofit();
         return rootView;
     }
 
     private void initRetrofit() {
-
 
         AnimeInterface service = RetrofitClientInstance.getRetrofitInstance().create(AnimeInterface.class);
 
@@ -113,8 +105,15 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<Result> call, Response<Result> response) {
                 try {
-                    //Toast.makeText(context," Success "+response.body(),Toast.LENGTH_SHORT).show();
-                    Log.e("BACA",""+ response.body().getData().get(0).getTitle());
+                    Result res = response.body();
+                    if(res.getSuccess())
+                    {
+                        animes = new ArrayList<>(res.getData());
+                        recycleOne();
+                        recycleTwo();
+                        recycleThree();
+                        recycleFour();
+                    }
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -127,12 +126,11 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void recycleOne(View rootview) {
-        RecyclerView recyclerView = rootview.findViewById(R.id.recyclerview1);
+    private void recycleOne() {
+        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerview1);
         recyclerView.setNestedScrollingEnabled(false);
 
-        List<Anime> animeList = new ArrayList<>();
-        AdapterType1 mAdapter = new AdapterType1(animeList, context);
+        AdapterType1 mAdapter = new AdapterType1(animes, context);
         // LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         GridLayoutManager mLayoutManager = new GridLayoutManager(context, 3);
         //RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -140,24 +138,14 @@ public class HomeFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
-        Anime anime = new Anime("https://i.pinimg.com/736x/80/a7/c8/80a7c89a089f14bca45ef79af56e2eac--one-piece--one-piece-manga.jpg");
-        animeList.add(anime);
-
-        anime = new Anime("https://i.pinimg.com/736x/5f/0e/1e/5f0e1ee14de1815649b12dcd3901f577--book-expo-manga-books.jpg");
-        animeList.add(anime);
-
-        anime = new Anime("https://vignette.wikia.nocookie.net/naruto/images/f/fc/Boruto_Vol_1.png/revision/latest?cb=20160807110342");
-        animeList.add(anime);
-
-        mAdapter.notifyDataSetChanged();
+        //mAdapter.notifyDataSetChanged();
     }
 
-    private void recycleTwo(View rootview) {
-        RecyclerView recyclerView = rootview.findViewById(R.id.recyclerview2);
+    private void recycleTwo() {
+        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerview2);
         recyclerView.setNestedScrollingEnabled(false);
 
-        List<Anime> animeList = new ArrayList<>();
-        AdapterType2 mAdapter = new AdapterType2(animeList, context);
+        AdapterType2 mAdapter = new AdapterType2(animes, context);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         // GridLayoutManager mLayoutManager = new GridLayoutManager(this, 3);
         //RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -165,24 +153,14 @@ public class HomeFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
-        Anime anime = new Anime("https://i.pinimg.com/736x/80/a7/c8/80a7c89a089f14bca45ef79af56e2eac--one-piece--one-piece-manga.jpg");
-        animeList.add(anime);
-
-        anime = new Anime("https://i.pinimg.com/736x/5f/0e/1e/5f0e1ee14de1815649b12dcd3901f577--book-expo-manga-books.jpg");
-        animeList.add(anime);
-
-        anime = new Anime("https://vignette.wikia.nocookie.net/naruto/images/f/fc/Boruto_Vol_1.png/revision/latest?cb=20160807110342");
-        animeList.add(anime);
-
-        mAdapter.notifyDataSetChanged();
+//        mAdapter.notifyDataSetChanged();
     }
 
-    private void recycleThree(View rootview) {
-        RecyclerView recyclerView = rootview.findViewById(R.id.recyclerview3);
+    private void recycleThree() {
+        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerview3);
         recyclerView.setNestedScrollingEnabled(false);
 
-        List<Anime> animeList = new ArrayList<>();
-        AdapterType1 mAdapter = new AdapterType1(animeList, context);
+        AdapterType1 mAdapter = new AdapterType1(animes, context);
         // LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         GridLayoutManager mLayoutManager = new GridLayoutManager(context, 3);
         //RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -190,24 +168,14 @@ public class HomeFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
-        Anime anime = new Anime("https://i.pinimg.com/736x/80/a7/c8/80a7c89a089f14bca45ef79af56e2eac--one-piece--one-piece-manga.jpg");
-        animeList.add(anime);
-
-        anime = new Anime("https://i.pinimg.com/736x/5f/0e/1e/5f0e1ee14de1815649b12dcd3901f577--book-expo-manga-books.jpg");
-        animeList.add(anime);
-
-        anime = new Anime("https://vignette.wikia.nocookie.net/naruto/images/f/fc/Boruto_Vol_1.png/revision/latest?cb=20160807110342");
-        animeList.add(anime);
-
-        mAdapter.notifyDataSetChanged();
+        //mAdapter.notifyDataSetChanged();
     }
 
-    private void recycleFour(View rootview) {
-        RecyclerView recyclerView = rootview.findViewById(R.id.recyclerview4);
+    private void recycleFour() {
+        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerview4);
         recyclerView.setNestedScrollingEnabled(false);
 
-        List<Anime> animeList = new ArrayList<>();
-        AdapterType2 mAdapter = new AdapterType2(animeList, context);
+        AdapterType2 mAdapter = new AdapterType2(animes, context);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         // GridLayoutManager mLayoutManager = new GridLayoutManager(this, 3);
         //RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -215,20 +183,11 @@ public class HomeFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
-        Anime anime = new Anime("https://i.pinimg.com/736x/80/a7/c8/80a7c89a089f14bca45ef79af56e2eac--one-piece--one-piece-manga.jpg");
-        animeList.add(anime);
-
-        anime = new Anime("https://i.pinimg.com/736x/5f/0e/1e/5f0e1ee14de1815649b12dcd3901f577--book-expo-manga-books.jpg");
-        animeList.add(anime);
-
-        anime = new Anime("https://vignette.wikia.nocookie.net/naruto/images/f/fc/Boruto_Vol_1.png/revision/latest?cb=20160807110342");
-        animeList.add(anime);
-
-        mAdapter.notifyDataSetChanged();
+//        mAdapter.notifyDataSetChanged();
     }
 
-    private void initSlider(View rootview) {
-        SliderLayout sliderShow = rootview.findViewById(R.id.slider);
+    private void initSlider() {
+        SliderLayout sliderShow = rootView.findViewById(R.id.slider);
 
         HashMap<String,String> url_maps = new HashMap<>();
         url_maps.put("Sword Art Online", "https://ae01.alicdn.com/kf/HTB16Xa3jCfD8KJjSszhq6zIJFXaw/DIY-frame-Sword-Art-Online-Light-Novel-Japan-Hot-Comics-Anime-Poster-Landscape-Fabric-Silk-Posters.jpg_640x640.jpg");

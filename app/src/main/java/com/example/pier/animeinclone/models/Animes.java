@@ -1,12 +1,10 @@
 package com.example.pier.animeinclone.models;
 
 
-import java.io.Serializable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Datum implements Serializable
-{
+public class Animes {
 
     @SerializedName("animeid")
     @Expose
@@ -26,7 +24,6 @@ public class Datum implements Serializable
     @SerializedName("view")
     @Expose
     private String view;
-    private final static long serialVersionUID = 8719160951506879544L;
 
     public String getAnimeid() {
         return animeid;
