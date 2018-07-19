@@ -7,4 +7,6 @@
     <color name="bgBottomNavigation">#448aff</color>
 
     <color name="label1">#000000</color>
+
+    <color name="blue">#304ffe</color>
 </resources>

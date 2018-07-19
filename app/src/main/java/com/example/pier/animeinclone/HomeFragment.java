@@ -1,6 +1,7 @@
 package com.example.pier.animeinclone;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.example.pier.animeinclone.activity.AnimeDetail;
 import com.example.pier.animeinclone.models.Anime;
 import com.example.pier.animeinclone.models.AnimeCallback;
 import com.example.pier.animeinclone.models.Animes;
@@ -97,35 +99,6 @@ public class HomeFragment extends Fragment implements AnimeCallback {
         //initRetrofit2();
         getAllAnimes();
         return rootView;
-    }
-    private void getAnimeByID(int animeid) {
-
-        AnimeInterface service = RetrofitClientInstance.getRetrofitInstance().create(AnimeInterface.class);
-
-        Call<Result> result = service.getAnimeByID(animeid);
-        result.enqueue(new Callback<Result>() {
-            @Override
-            public void onResponse(Call<Result> call, Response<Result> response) {
-                try {
-                    Result res = response.body();
-                    if(res.getSuccess())
-                    {
-                        animes = new ArrayList<>(res.getData());
-                        recycleOne();
-                        recycleTwo();
-                        recycleThree();
-                        recycleFour();
-                    }
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Result> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
     }
 
     private void getAllAnimes() {
@@ -268,8 +241,11 @@ public class HomeFragment extends Fragment implements AnimeCallback {
 
     @Override
     public void OnClickItem(int animeid) {
-        Toast.makeText(context, "Anime ID : "+animeid,
-                Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(context.getApplicationContext(),AnimeDetail.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("animeid",animeid);
+        i.putExtras(bundle);
+        startActivity(i);
     }
 
 
