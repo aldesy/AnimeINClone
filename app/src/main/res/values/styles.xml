@@ -24,7 +24,7 @@
     </style>
 
     <style name="TitleTextStyles" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textColor">@color/blue</item>
+        <item name="android:textColor">@color/titleColor</item>
     </style>
 
 

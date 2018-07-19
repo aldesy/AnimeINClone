@@ -1,6 +1,5 @@
 package com.example.pier.animeinclone.models;
 
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -21,6 +20,9 @@ public class Animes {
     @SerializedName("image")
     @Expose
     private String image;
+    @SerializedName("imgbackground")
+    @Expose
+    private String imgbackground;
     @SerializedName("view")
     @Expose
     private String view;
@@ -63,6 +65,14 @@ public class Animes {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getImgbackground() {
+        return imgbackground;
+    }
+
+    public void setImgbackground(String imgbackground) {
+        this.imgbackground = imgbackground;
     }
 
     public String getView() {

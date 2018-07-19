@@ -8,5 +8,5 @@
 
     <color name="label1">#000000</color>
 
-    <color name="blue">#304ffe</color>
+    <color name="titleColor">#ffffff</color>
 </resources>
