@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -15,8 +16,10 @@ import com.universalvideoview.UniversalVideoView;
 
 public class FullScreenVideoAcivity extends AppCompatActivity {
 
-
-
+    UniversalVideoView mVideoView;
+    public int stopPosition;
+    public View mVideoLayout;
+    public UniversalMediaController mMediaController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,10 +28,8 @@ public class FullScreenVideoAcivity extends AppCompatActivity {
         String streamlink =  getIntent().getStringExtra("streamlink");
 //
 //        final View mBottomLayout;
-        final View mVideoLayout = findViewById(R.id.video_layout);
-
-        UniversalVideoView mVideoView;
-        UniversalMediaController mMediaController;
+        mVideoLayout = findViewById(R.id.video_layout);
+    //    final View mBottomLayout = findViewById(R.id.bottom_layout);
 
         mVideoView = findViewById(R.id.videoView);
         TextView loading_text;
@@ -42,7 +43,7 @@ public class FullScreenVideoAcivity extends AppCompatActivity {
         mVideoView.setVideoURI(vidUri);
 
         mVideoView.setVideoViewCallback(new UniversalVideoView.VideoViewCallback() {
-            private int cachedHeight = mVideoLayout.getHeight();
+
             @Override
             public void onScaleChange(boolean isFullscreen) {
                 if (isFullscreen) {
@@ -51,11 +52,12 @@ public class FullScreenVideoAcivity extends AppCompatActivity {
                     layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
                     mVideoLayout.setLayoutParams(layoutParams);
                     //GONE the unconcerned views to leave room for video and controller
-                    //mBottomLayout.setVisibility(View.GONE);
+                   // mBottomLayout.setVisibility(View.GONE);
                 } else {
                     ViewGroup.LayoutParams layoutParams = mVideoLayout.getLayoutParams();
                     layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-                    layoutParams.height = this.cachedHeight;
+                    int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, getResources().getDisplayMetrics());
+                    layoutParams.height = height;
                     mVideoLayout.setLayoutParams(layoutParams);
                     //mBottomLayout.setVisibility(View.VISIBLE);
                 }
@@ -77,12 +79,25 @@ public class FullScreenVideoAcivity extends AppCompatActivity {
             }
 
             @Override
-            public void onBufferingEnd(MediaPlayer mediaPlayer) {// steam end loading
+            public void onBufferingEnd(MediaPlayer mediaPlayer) {// steam end loadin
             //    Log.d(TAG, "onBufferingEnd UniversalVideoView callback");
             }
 
         });
 
         mVideoView.start();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        stopPosition = mVideoView.getCurrentPosition(); //stopPosition is an int
+        mVideoView.pause();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        mVideoView.seekTo(stopPosition);
+        mVideoView.start(); //Or use resume() if it doesn't work. I'm not sure
     }
 }
