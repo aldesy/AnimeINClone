@@ -72,7 +72,7 @@ public class AdapterListEpisode extends RecyclerView.Adapter<AdapterListEpisode.
         Episode episode = episodeList.get(position);
         Picasso.with(context).load(episode.getThumbnail()).into(holder.imgThumbnail);
         holder.txtTitle.setText(episode.getTitle());
-        holder.txtView.setText(episode.getView());
+        holder.txtView.setText(episode.getView()+ " views");
         holder.episodeid = episode.getEpisodeid();
     }
 
