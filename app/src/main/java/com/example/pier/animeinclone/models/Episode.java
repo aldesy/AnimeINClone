@@ -23,6 +23,9 @@ public class Episode {
     @SerializedName("thumbnail")
     @Expose
     private String thumbnail;
+    @SerializedName("streamlink")
+    @Expose
+    private String streamlink;
 
     public int getEpisodeid() {
         return Integer.parseInt(episodeid);
@@ -72,4 +75,11 @@ public class Episode {
         this.view = view;
     }
 
+    public String getStreamlink() {
+        return streamlink;
+    }
+
+    public void setStreamlink(String streamlink) {
+        this.streamlink = streamlink;
+    }
 }

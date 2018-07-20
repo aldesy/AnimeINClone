@@ -36,7 +36,7 @@ public class AdapterListEpisode extends RecyclerView.Adapter<AdapterListEpisode.
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public int episodeid;
+        public String streamlink;
 
         @BindView(R.id.episodeLayout)
         ConstraintLayout episodeLayout;
@@ -49,7 +49,7 @@ public class AdapterListEpisode extends RecyclerView.Adapter<AdapterListEpisode.
 
         @OnClick(R.id.episodeLayout)
         public void onViewClicked() {
-            animeCallback.OnClickListItem(episodeid);
+            animeCallback.OnClickListItem(streamlink);
         }
 
         private MyViewHolder(View view) {
@@ -73,7 +73,7 @@ public class AdapterListEpisode extends RecyclerView.Adapter<AdapterListEpisode.
         Picasso.with(context).load(episode.getThumbnail()).into(holder.imgThumbnail);
         holder.txtTitle.setText(episode.getTitle());
         holder.txtView.setText(episode.getView()+ " views");
-        holder.episodeid = episode.getEpisodeid();
+        holder.streamlink = episode.getStreamlink();
     }
 
     @Override

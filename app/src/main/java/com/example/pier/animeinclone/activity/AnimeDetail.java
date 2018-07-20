@@ -28,7 +28,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AnimeDetail extends AppCompatActivity implements AnimeCallback{
+public class AnimeDetail extends AppCompatActivity implements AnimeCallback<String>{
 
     @BindView(R.id.imgBackground)
     ImageView imgBackground;
@@ -126,8 +126,11 @@ public class AnimeDetail extends AppCompatActivity implements AnimeCallback{
     }
 
     @Override
-    public void OnClickListItem(int episodeid) {
-        Toast.makeText(this, "Episode ID : "+episodeid,
-                Toast.LENGTH_SHORT).show();
+    public void OnClickListItem(String streamlink) {
+        Intent i = new Intent(AnimeDetail.this,VideoActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("streamlink",streamlink);
+        i.putExtras(bundle);
+        startActivity(i);
     }
 }

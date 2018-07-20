@@ -47,7 +47,7 @@ import retrofit2.Response;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment implements AnimeCallback {
+public class HomeFragment extends Fragment implements AnimeCallback<Integer> {
 
     private Context context;
     private View rootView;
@@ -240,7 +240,7 @@ public class HomeFragment extends Fragment implements AnimeCallback {
     }
 
     @Override
-    public void OnClickListItem(int animeid) {
+    public void OnClickListItem(Integer animeid) {
         Intent i = new Intent(context.getApplicationContext(),AnimeDetail.class);
         Bundle bundle = new Bundle();
         bundle.putInt("animeid",animeid);
