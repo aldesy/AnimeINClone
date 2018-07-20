@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -109,7 +110,7 @@ public class AnimeDetail extends AppCompatActivity implements AnimeCallback<Stri
     private void LoadEpisode() {
         recyclerEpisode.setNestedScrollingEnabled(false);
         AdapterListEpisode mAdapter = new AdapterListEpisode(anime.getEpisodes(), this, this);
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerEpisode.setLayoutManager(mLayoutManager);
         recyclerEpisode.setItemAnimator(new DefaultItemAnimator());
         recyclerEpisode.setAdapter(mAdapter);
