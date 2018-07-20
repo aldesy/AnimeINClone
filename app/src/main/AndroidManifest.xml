@@ -27,7 +27,8 @@
         <activity
             android:name=".activity.AnimeDetail"
             android:theme="@style/AppThemeWithActionBar"></activity>
-        <activity android:name=".activity.VideoActivity"></activity>
+        <activity
+            android:name=".activity.VideoActivity"></activity>
     </application>
 
 </manifest>

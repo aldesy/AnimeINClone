@@ -128,9 +128,7 @@ public class AnimeDetail extends AppCompatActivity implements AnimeCallback<Stri
     @Override
     public void OnClickListItem(String streamlink) {
         Intent i = new Intent(AnimeDetail.this,VideoActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString("streamlink",streamlink);
-        i.putExtras(bundle);
+        i.putExtra("streamlink", streamlink);
         startActivity(i);
     }
 }
