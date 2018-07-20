@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
-                android:text="1000"
+                android:text="4.5 (324)"
                 android:textColor="@android:color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"

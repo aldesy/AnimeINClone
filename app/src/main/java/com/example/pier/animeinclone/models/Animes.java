@@ -31,6 +31,13 @@ public class Animes {
     @Expose
     private List<Episode> episodes = null;
 
+    @SerializedName("rating")
+    @Expose
+    private String rating;
+    @SerializedName("ratecount")
+    @Expose
+    private String ratecount;
+
     public String getAnimeid() {
         return animeid;
     }
@@ -94,5 +101,13 @@ public class Animes {
     public void setEpisodes(List<Episode> episodes) {
         this.episodes = episodes;
     }
+
+    public float getRating() { return Float.parseFloat(rating); }
+
+    public void setRating(String rating) { this.rating = rating; }
+
+    public String getRatecount() { return ratecount; }
+
+    public void setRatecount(String ratecount) { this.ratecount = ratecount; }
 
 }

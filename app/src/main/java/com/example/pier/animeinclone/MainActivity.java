@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements
         {
             transaction.show(fragment);
         }
-        if(currentFragment != null) transaction.hide(currentFragment);
+        if(currentFragment != null && currentFragment != fragment) transaction.hide(currentFragment);
         transaction.commit();
         currentFragment = fragment;
     }

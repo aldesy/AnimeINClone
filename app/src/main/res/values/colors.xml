@@ -13,5 +13,5 @@
     <color name="anime_status_neg">#ff8548</color>
 
     <color name="starActivated">#eeff41</color>
-    <color name="starNormal">#d7d7d7</color>
+    <color name="starNormal">#ffffff</color>
 </resources>
