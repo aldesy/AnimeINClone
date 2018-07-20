@@ -45,7 +45,7 @@ public class AdapterType1 extends RecyclerView.Adapter<AdapterType1.MyViewHolder
         }
     }
 
-    private AdapterType1(List<Animes> animeList, Context context, AnimeCallback callback) {
+    public AdapterType1(List<Animes> animeList, Context context, AnimeCallback callback) {
         this.animeList = animeList;
         this.context = context;
         this.animeCallback = callback;
