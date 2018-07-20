@@ -70,7 +70,7 @@ public class AdapterType1 extends RecyclerView.Adapter<AdapterType1.MyViewHolder
         View.OnClickListener clickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                animeCallback.OnClickItem(Integer.parseInt(anime.getAnimeid()));
+                animeCallback.OnClickListItem(Integer.parseInt(anime.getAnimeid()));
             }
         };
         holder.img.setOnClickListener(clickListener);

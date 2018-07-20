@@ -240,7 +240,7 @@ public class HomeFragment extends Fragment implements AnimeCallback {
     }
 
     @Override
-    public void OnClickItem(int animeid) {
+    public void OnClickListItem(int animeid) {
         Intent i = new Intent(context.getApplicationContext(),AnimeDetail.class);
         Bundle bundle = new Bundle();
         bundle.putInt("animeid",animeid);

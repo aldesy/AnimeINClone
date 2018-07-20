@@ -3,14 +3,19 @@ package com.example.pier.animeinclone.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.pier.animeinclone.AdapterListEpisode;
 import com.example.pier.animeinclone.AnimeInterface;
 import com.example.pier.animeinclone.R;
 import com.example.pier.animeinclone.RetrofitClientInstance;
+import com.example.pier.animeinclone.SpanningLinearLayoutManager;
+import com.example.pier.animeinclone.models.AnimeCallback;
 import com.example.pier.animeinclone.models.Animes;
 import com.example.pier.animeinclone.models.Result;
 import com.squareup.picasso.Picasso;
@@ -22,7 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AnimeDetail extends AppCompatActivity {
+public class AnimeDetail extends AppCompatActivity implements AnimeCallback{
 
     @BindView(R.id.imgBackground)
     ImageView imgBackground;
@@ -42,6 +47,7 @@ public class AnimeDetail extends AppCompatActivity {
     RecyclerView recyclerEpisode;
     @BindView(R.id.txtStatus)
     TextView txtStatus;
+
     private Animes anime;
 
     @Override
@@ -84,7 +90,8 @@ public class AnimeDetail extends AppCompatActivity {
                             txtStatus.setText("FINISHED");
                         }
                         Picasso.with(AnimeDetail.this).load(anime.getImgbackground()).into(imgBackground);
-                        //setBackgroundActivity();
+
+                        LoadEpisode();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -98,6 +105,15 @@ public class AnimeDetail extends AppCompatActivity {
         });
     }
 
+    private void LoadEpisode() {
+        recyclerEpisode.setNestedScrollingEnabled(false);
+        AdapterListEpisode mAdapter = new AdapterListEpisode(anime.getEpisodes(), this, this);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerEpisode.setLayoutManager(mLayoutManager);
+        recyclerEpisode.setItemAnimator(new DefaultItemAnimator());
+        recyclerEpisode.setAdapter(mAdapter);
+    }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -106,5 +122,10 @@ public class AnimeDetail extends AppCompatActivity {
 
     @OnClick(R.id.txtSelengkapnya)
     public void onViewClicked() {
+    }
+
+    @Override
+    public void OnClickListItem(int episodeid) {
+
     }
 }
