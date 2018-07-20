@@ -76,10 +76,12 @@
         <TextView
             android:id="@+id/txtTitle"
             android:layout_width="103dp"
-            android:layout_height="45dp"
+            android:layout_height="42dp"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            android:text="One Piece"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="One Piece nest asdaasdasdasd"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtGenre" />

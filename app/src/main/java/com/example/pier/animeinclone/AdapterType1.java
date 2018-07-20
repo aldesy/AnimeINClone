@@ -24,7 +24,7 @@ public class AdapterType1 extends RecyclerView.Adapter<AdapterType1.MyViewHolder
     private Context context;
     private AnimeCallback animeCallback;
 
-    private class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         // public TextView title, year, genre;
         @BindView(R.id.img)
         ImageView img;
