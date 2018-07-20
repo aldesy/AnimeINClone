@@ -72,7 +72,7 @@ public class AnimeDetail extends AppCompatActivity {
                         txtTitle.setText(anime.getTitle());
                         txtSinopsis.setText(anime.getSinopsis());
                         txtJumlahView.setText(anime.getView()+" Views");
-
+                        txtJumlahRate.setText(anime.getRating()+" ("+anime.getRatecount()+")");
                         if (anime.getStatus().equals("1"))
                         {
                             txtStatus.setBackgroundColor(getResources().getColor(R.color.anime_status_pos));
