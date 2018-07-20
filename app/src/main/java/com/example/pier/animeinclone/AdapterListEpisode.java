@@ -2,6 +2,7 @@ package com.example.pier.animeinclone;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +18,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class AdapterListEpisode extends RecyclerView.Adapter<AdapterListEpisode.MyViewHolder> {
+
 
     private List<Episode> episodeList;
     private Context context;
@@ -30,11 +33,24 @@ public class AdapterListEpisode extends RecyclerView.Adapter<AdapterListEpisode.
         this.animeCallback = animeCallback;
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+
+        public int episodeid;
+
+        @BindView(R.id.episodeLayout)
+        ConstraintLayout episodeLayout;
         @BindView(R.id.imgThumbnail)
         ImageView imgThumbnail;
         @BindView(R.id.txtTitle)
         TextView txtTitle;
+        @BindView(R.id.txtView)
+        TextView txtView;
+
+        @OnClick(R.id.episodeLayout)
+        public void onViewClicked() {
+            animeCallback.OnClickListItem(episodeid);
+        }
 
         private MyViewHolder(View view) {
             super(view);
@@ -56,6 +72,8 @@ public class AdapterListEpisode extends RecyclerView.Adapter<AdapterListEpisode.
         Episode episode = episodeList.get(position);
         Picasso.with(context).load(episode.getThumbnail()).into(holder.imgThumbnail);
         holder.txtTitle.setText(episode.getTitle());
+        holder.txtView.setText(episode.getView());
+        holder.episodeid = episode.getEpisodeid();
     }
 
     @Override

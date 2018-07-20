@@ -11,6 +11,9 @@ public class Episode {
     @SerializedName("episodenumber")
     @Expose
     private String episodenumber;
+    @SerializedName("view")
+    @Expose
+    private String view;
     @SerializedName("anime")
     @Expose
     private String anime;
@@ -21,8 +24,8 @@ public class Episode {
     @Expose
     private String thumbnail;
 
-    public String getEpisodeid() {
-        return episodeid;
+    public int getEpisodeid() {
+        return Integer.parseInt(episodeid);
     }
 
     public void setEpisodeid(String episodeid) {
@@ -59,6 +62,14 @@ public class Episode {
 
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
+    }
+
+    public String getView() {
+        return view;
+    }
+
+    public void setView(String view) {
+        this.view = view;
     }
 
 }

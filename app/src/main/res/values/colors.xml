@@ -15,5 +15,5 @@
     <color name="starActivated">#eeff41</color>
     <color name="starNormal">#ffffff</color>
 
-    <color name="list_episode_background">#cbffffff</color>
+    <color name="list_episode_background">#00ffffff</color>
 </resources>

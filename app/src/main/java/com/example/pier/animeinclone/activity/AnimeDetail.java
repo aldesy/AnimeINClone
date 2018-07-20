@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pier.animeinclone.AdapterListEpisode;
 import com.example.pier.animeinclone.AnimeInterface;
@@ -126,6 +127,7 @@ public class AnimeDetail extends AppCompatActivity implements AnimeCallback{
 
     @Override
     public void OnClickListItem(int episodeid) {
-
+        Toast.makeText(this, "Episode ID : "+episodeid,
+                Toast.LENGTH_SHORT).show();
     }
 }
