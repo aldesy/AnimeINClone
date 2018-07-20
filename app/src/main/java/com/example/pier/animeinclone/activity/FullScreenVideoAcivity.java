@@ -1,5 +1,6 @@
 package com.example.pier.animeinclone.activity;
 
+import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ public class FullScreenVideoAcivity extends AppCompatActivity {
     public int stopPosition;
     public View mVideoLayout;
     public UniversalMediaController mMediaController;
+    public boolean checkFullScreen = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,7 @@ public class FullScreenVideoAcivity extends AppCompatActivity {
             @Override
             public void onScaleChange(boolean isFullscreen) {
                 if (isFullscreen) {
+                    checkFullScreen = true;
                     ViewGroup.LayoutParams layoutParams = mVideoLayout.getLayoutParams();
                     layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
                     layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -54,6 +57,7 @@ public class FullScreenVideoAcivity extends AppCompatActivity {
                     //GONE the unconcerned views to leave room for video and controller
                    // mBottomLayout.setVisibility(View.GONE);
                 } else {
+                    checkFullScreen = false;
                     ViewGroup.LayoutParams layoutParams = mVideoLayout.getLayoutParams();
                     layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
                     int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 200, getResources().getDisplayMetrics());
@@ -99,5 +103,16 @@ public class FullScreenVideoAcivity extends AppCompatActivity {
         super.onResume();
         mVideoView.seekTo(stopPosition);
         mVideoView.start(); //Or use resume() if it doesn't work. I'm not sure
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        if(checkFullScreen)
+        {
+            mVideoView.setFullscreen(false);
+        }
+        else super.onBackPressed();
+
     }
 }
