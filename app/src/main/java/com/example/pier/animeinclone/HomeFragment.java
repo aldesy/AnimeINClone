@@ -25,6 +25,10 @@ import com.example.pier.animeinclone.models.Anime;
 import com.example.pier.animeinclone.models.AnimeCallback;
 import com.example.pier.animeinclone.models.Animes;
 import com.example.pier.animeinclone.models.Result;
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexWrap;
+import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.android.flexbox.JustifyContent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -133,9 +137,8 @@ public class HomeFragment extends Fragment implements AnimeCallback {
         recyclerView.setNestedScrollingEnabled(false);
 
         AdapterType1 mAdapter = new AdapterType1(animes, context, this);
-        // LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        GridLayoutManager mLayoutManager = new GridLayoutManager(context, 3);
-        //RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        SpanningLinearLayoutManager mLayoutManager = new SpanningLinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
@@ -164,7 +167,8 @@ public class HomeFragment extends Fragment implements AnimeCallback {
 
         AdapterType1 mAdapter = new AdapterType1(animes, context, this);
         // LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        GridLayoutManager mLayoutManager = new GridLayoutManager(context, 3);
+        SpanningLinearLayoutManager mLayoutManager = new SpanningLinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+
         //RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

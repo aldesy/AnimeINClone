@@ -106,7 +106,7 @@ public class Animes {
 
     public void setRating(String rating) { this.rating = rating; }
 
-    public String getRatecount() { return ratecount; }
+    public int getRatecount() { return Integer.parseInt(ratecount); }
 
     public void setRatecount(String ratecount) { this.ratecount = ratecount; }
 
