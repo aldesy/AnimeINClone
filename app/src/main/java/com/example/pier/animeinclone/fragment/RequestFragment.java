@@ -1,7 +1,9 @@
 package com.example.pier.animeinclone.fragment;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.net.Uri;
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -9,7 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.example.pier.animeinclone.R;
 import com.example.pier.animeinclone.RetrofitClientInstance;
@@ -22,6 +25,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,6 +46,10 @@ public class RequestFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     Unbinder unbinder;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
+    @BindView(R.id.btnCari)
+    Button btnCari3;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -89,33 +97,39 @@ public class RequestFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_request, container, false);
         unbinder = ButterKnife.bind(this, view);
 
+        progressBar.getIndeterminateDrawable().setColorFilter(
+                getResources().getColor(R.color.progressColor),
+                PorterDuff.Mode.SRC_IN);
+        progressBar.setVisibility(View.GONE);
+
         return view;
     }
 
 
     private void searchMyAnimelist() {
-
+        progressBar.setVisibility(View.VISIBLE);
         String BASE_URL = "https://api.jikan.moe/";
         MyAnimeListAPI service = RetrofitClientInstance.getRetrofitMALInstance(BASE_URL).create(MyAnimeListAPI.class);
 
-        Call<MALResponse> responseCall = service.searchAnime("One",1);
+        Call<MALResponse> responseCall = service.searchAnime("One", 1);
         responseCall.enqueue(new Callback<MALResponse>() {
             @Override
             public void onResponse(@NonNull Call<MALResponse> call, @NonNull Response<MALResponse> response) {
-                Log.e("MASUK","asd");
+                Log.e("MASUK", "asd");
                 try {
                     MALResponse res = response.body();
                     if (res.getRequest_hash() != null && res.getResult().size() > 0) {
+                        progressBar.setVisibility(View.GONE);
                         listSearch = new ArrayList<>(res.getResult());
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<MALResponse> call, @NonNull Throwable t) {
-                Log.e("GAGAL","asd");
+                Log.e("GAGAL", "asd");
                 t.printStackTrace();
             }
         });
@@ -149,6 +163,11 @@ public class RequestFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @OnClick(R.id.btnCari)
+    public void onViewClicked() {
+        searchMyAnimelist();
     }
 
     /**

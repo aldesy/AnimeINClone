@@ -16,4 +16,5 @@
     <color name="starNormal">#a1ffffff</color>
 
     <color name="list_episode_background">#00ffffff</color>
+    <color name="progressColor">#448aff</color>
 </resources>
