@@ -3,20 +3,29 @@ package com.example.pier.animeinclone.fragment;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.net.Uri;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
+import com.example.pier.animeinclone.AdapterMyAnimeList;
 import com.example.pier.animeinclone.R;
 import com.example.pier.animeinclone.RetrofitClientInstance;
 import com.example.pier.animeinclone.interfaces.MyAnimeListAPI;
+import com.example.pier.animeinclone.models.AnimeCallback;
 import com.example.pier.animeinclone.models.MALResponse;
 import com.example.pier.animeinclone.models.MALResult;
 
@@ -39,7 +48,7 @@ import retrofit2.Response;
  * Use the {@link RequestFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RequestFragment extends Fragment {
+public class RequestFragment extends Fragment implements AnimeCallback {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -50,6 +59,10 @@ public class RequestFragment extends Fragment {
     ProgressBar progressBar;
     @BindView(R.id.btnCari)
     Button btnCari3;
+    @BindView(R.id.recyclerMal)
+    RecyclerView recyclerMal;
+    @BindView(R.id.txtSearch)
+    EditText txtSearch;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -57,6 +70,9 @@ public class RequestFragment extends Fragment {
 
     private List<MALResult> listSearch;
     private OnFragmentInteractionListener mListener;
+    private Context context;
+    private boolean isSearching;
+    private InputMethodManager inputMethodManager;
 
     public RequestFragment() {
         // Required empty public constructor
@@ -97,42 +113,84 @@ public class RequestFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_request, container, false);
         unbinder = ButterKnife.bind(this, view);
 
+        context = getActivity();
         progressBar.getIndeterminateDrawable().setColorFilter(
                 getResources().getColor(R.color.progressColor),
                 PorterDuff.Mode.SRC_IN);
+
+        recyclerMal.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
 
+        txtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    searchMyAnimelist();
+                    return true;
+                }
+                return false;
+            }
+        });
         return view;
     }
 
 
     private void searchMyAnimelist() {
-        progressBar.setVisibility(View.VISIBLE);
-        String BASE_URL = "https://api.jikan.moe/";
-        MyAnimeListAPI service = RetrofitClientInstance.getRetrofitMALInstance(BASE_URL).create(MyAnimeListAPI.class);
+        String searchtext = txtSearch.getText().toString();
+        if(!isSearching && searchtext.length() >= 3)
+        {
+            inputMethodManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            isSearching = true;
+            recyclerMal.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
+            String BASE_URL = "https://api.jikan.moe/";
+            MyAnimeListAPI service = RetrofitClientInstance.getRetrofitMALInstance(BASE_URL).create(MyAnimeListAPI.class);
 
-        Call<MALResponse> responseCall = service.searchAnime("One", 1);
-        responseCall.enqueue(new Callback<MALResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<MALResponse> call, @NonNull Response<MALResponse> response) {
-                Log.e("MASUK", "asd");
-                try {
-                    MALResponse res = response.body();
-                    if (res.getRequest_hash() != null && res.getResult().size() > 0) {
-                        progressBar.setVisibility(View.GONE);
-                        listSearch = new ArrayList<>(res.getResult());
+            Call<MALResponse> responseCall = service.searchAnime(searchtext, 1);
+            responseCall.enqueue(new Callback<MALResponse>() {
+                @Override
+                public void onResponse(@NonNull Call<MALResponse> call, @NonNull Response<MALResponse> response) {
+                    Log.e("MASUK", "asd");
+                    try {
+                        MALResponse res = response.body();
+                        if (res.getRequest_hash() != null && res.getResult().size() > 0) {
+                            progressBar.setVisibility(View.GONE);
+                            listSearch = new ArrayList<>(res.getResult());
+                            recycle();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
-            }
 
-            @Override
-            public void onFailure(@NonNull Call<MALResponse> call, @NonNull Throwable t) {
-                Log.e("GAGAL", "asd");
-                t.printStackTrace();
-            }
-        });
+                @Override
+                public void onFailure(@NonNull Call<MALResponse> call, @NonNull Throwable t) {
+                    Log.e("GAGAL", "asd");
+                    t.printStackTrace();
+                }
+            });
+        }
+    }
+
+    private void recycle() {
+        //if(recyclerMal.getAdapter() == null)
+        //{
+            recyclerMal.setNestedScrollingEnabled(false);
+
+            AdapterMyAnimeList mAdapter = new AdapterMyAnimeList(listSearch, context, this);
+            RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(context, 3);
+
+            recyclerMal.setLayoutManager(mLayoutManager);
+            recyclerMal.setItemAnimator(new DefaultItemAnimator());
+            recyclerMal.setAdapter(mAdapter);
+       // }
+      //  else
+      //  {
+       //     recyclerMal.getAdapter().notifyDataSetChanged();
+      //  }
+
+        recyclerMal.setVisibility(View.VISIBLE);
+        isSearching = false;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -170,6 +228,11 @@ public class RequestFragment extends Fragment {
         searchMyAnimelist();
     }
 
+    @Override
+    public void OnClickListItem(Object data) {
+
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -183,5 +246,12 @@ public class RequestFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
     }
 }
