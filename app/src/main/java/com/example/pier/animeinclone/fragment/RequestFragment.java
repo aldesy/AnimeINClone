@@ -21,7 +21,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.pier.animeinclone.AdapterMyAnimeList;
 import com.example.pier.animeinclone.R;
@@ -59,14 +58,20 @@ public class RequestFragment extends Fragment implements AnimeCallback {
     Unbinder unbinder;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
-    @BindView(R.id.btnCari)
-    Button btnCari3;
+
     @BindView(R.id.recyclerMal)
     RecyclerView recyclerMal;
     @BindView(R.id.txtSearch)
     EditText txtSearch;
     @BindView(R.id.parentConstraintLayout)
     ConstraintLayout parentConstraintLayout;
+    @BindView(R.id.constraintLayout)
+    ConstraintLayout constraintLayout;
+    @BindView(R.id.btnPencarian)
+    Button btnPencarian;
+    @BindView(R.id.btnCari)
+    Button btnCari;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -83,7 +88,6 @@ public class RequestFragment extends Fragment implements AnimeCallback {
     public RequestFragment() {
         // Required empty public constructor
     }
-
 
 
     // TODO: Rename and change types and number of parameters
@@ -114,6 +118,7 @@ public class RequestFragment extends Fragment implements AnimeCallback {
 
         recyclerMal.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
+        setVisibilitySearch(View.GONE);
 
         txtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -126,22 +131,18 @@ public class RequestFragment extends Fragment implements AnimeCallback {
             }
         });
 
-        txtSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (hasFocus) {
-                    //  txtSearch.setCursorVisible(true);
-               //     Toast.makeText(context, "Got the focus", Toast.LENGTH_LONG).show();
-                } else {
-                    // txtSearch.setCursorVisible(false);
-               //     Toast.makeText(context, "Lost the focus", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
         return view;
     }
 
+    private void setVisibilitySearch(int visibility) {
+        constraintLayout.setVisibility(visibility);
+        btnCari.setVisibility(visibility);
+    }
+
+    private void toggleSearch() {
+        int visible = (btnCari.getVisibility() == View.VISIBLE) ? View.GONE : View.VISIBLE;
+        setVisibilitySearch(visible);
+    }
 
     private void searchMyAnimelist() {
         String searchtext = txtSearch.getText().toString();
@@ -203,7 +204,7 @@ public class RequestFragment extends Fragment implements AnimeCallback {
         }
 
         recyclerMal.setVisibility(View.VISIBLE);
-        mLayoutManager.smoothScrollToPosition(recyclerMal,null,0);
+        mLayoutManager.smoothScrollToPosition(recyclerMal, null, 0);
         isSearching = false;
     }
 
@@ -237,15 +238,24 @@ public class RequestFragment extends Fragment implements AnimeCallback {
         unbinder.unbind();
     }
 
-    @OnClick(R.id.btnCari)
-    public void onViewClicked() {
-        searchMyAnimelist();
-    }
 
     @Override
     public void OnClickListItem(Object data) {
 
     }
+
+    @OnClick({R.id.btnPencarian, R.id.btnCari})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btnPencarian:
+                toggleSearch();
+                break;
+            case R.id.btnCari:
+                break;
+        }
+    }
+
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -269,8 +279,7 @@ public class RequestFragment extends Fragment implements AnimeCallback {
         inputMethodManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
     }
 
-    public boolean isTxtSearchHasFocus()
-    {
+    public boolean isTxtSearchHasFocus() {
         return txtSearch.hasFocus();
     }
 }
