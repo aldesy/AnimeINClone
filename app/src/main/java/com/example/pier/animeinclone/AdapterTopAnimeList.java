@@ -54,7 +54,7 @@ public class AdapterTopAnimeList extends RecyclerView.Adapter<AdapterTopAnimeLis
         myViewHolder.txtType.setText(info);
         info = mal.getAiring_start()+" - "+mal.getAiring_end();
         myViewHolder.txtAiring.setText(info);
-        myViewHolder.txtRankNum.setText(mal.getRank().toString());
+        myViewHolder.txtRankNum.setText("Rank : "+mal.getRank().toString());
     }
 
     @Override
