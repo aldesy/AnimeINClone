@@ -58,6 +58,7 @@ public class TopAnimeHelper implements AnimeCallback{
                 } catch (Exception e) {
                     rf.progressBar.setVisibility(View.GONE);
                     rf.isBusy = false;
+                    showTopAnime();
                     e.printStackTrace();
                 }
             }
@@ -65,6 +66,7 @@ public class TopAnimeHelper implements AnimeCallback{
             @Override
             public void onFailure(@NonNull Call<MALTopAnimeResponse> call, @NonNull Throwable t) {
                 rf.progressBar.setVisibility(View.GONE);
+                rf.isBusy = false;
                 t.printStackTrace();
             }
         });

@@ -38,7 +38,7 @@ public class AdapterTopAnimeList extends RecyclerView.Adapter<AdapterTopAnimeLis
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View itemView = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.adapter_myanimelist, viewGroup, false);
+                .inflate(R.layout.adapter_top_anime_list, viewGroup, false);
 
         return new MyViewHolder(itemView);
     }
