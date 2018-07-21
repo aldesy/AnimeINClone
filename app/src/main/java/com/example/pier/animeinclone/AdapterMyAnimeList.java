@@ -19,6 +19,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 public class AdapterMyAnimeList extends RecyclerView.Adapter<AdapterMyAnimeList.MyViewHolder> {
 
@@ -48,6 +49,9 @@ public class AdapterMyAnimeList extends RecyclerView.Adapter<AdapterMyAnimeList.
         MALResult mal = myanimeList.get(i);
         Picasso.with(context).load(mal.getImage_url()).into(myViewHolder.imgAnime);
         myViewHolder.txtTitle.setText(mal.getTitle());
+        myViewHolder.txtScore.setText(mal.getScore()+"/10");
+        String info = mal.getType()+", "+mal.getEpisodes().toString()+" Eps";
+        myViewHolder.txtType.setText(info);
     }
 
     @Override
@@ -56,19 +60,25 @@ public class AdapterMyAnimeList extends RecyclerView.Adapter<AdapterMyAnimeList.
     }
 
 
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         @OnClick(R.id.mainLayout)
         public void onViewClicked() {
             animeCallback.OnClickListItem(0);
         }
+
         @BindView(R.id.mainLayout)
         ConstraintLayout mainLayout;
         @BindView(R.id.imgAnime)
         ImageView imgAnime;
         @BindView(R.id.txtTitle)
         TextView txtTitle;
+        @BindView(R.id.ratingBar)
+        MaterialRatingBar ratingBar;
+        @BindView(R.id.txtScore)
+        TextView txtScore;
+        @BindView(R.id.txtType)
+        TextView txtType;
 
         private MyViewHolder(View view) {
             super(view);
