@@ -37,6 +37,9 @@ public class TopAnimeHelper implements AnimeCallback{
 
     public void showTopAnime()
     {
+        if(rf.isSearching)
+            return;
+        rf.isSearching = true;
         rf.recyclerMal.setVisibility(View.GONE);
         rf.progressBar.setVisibility(View.VISIBLE);
         String BASE_URL = "https://api.jikan.moe/";

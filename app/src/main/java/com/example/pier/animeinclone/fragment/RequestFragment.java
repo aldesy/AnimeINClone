@@ -85,7 +85,7 @@ public class RequestFragment extends Fragment implements AnimeCallback {
     private List<MALResult> listSearch;
     private OnFragmentInteractionListener mListener;
     private Context context;
-    private boolean isSearching;
+    public boolean isSearching;
     private InputMethodManager inputMethodManager;
     private AdapterMyAnimeList mAdapter;
     public RecyclerView.LayoutManager mLayoutManager;
@@ -252,6 +252,7 @@ public class RequestFragment extends Fragment implements AnimeCallback {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnPencarian:
+                if(!isSearching)
                 toggleSearch();
                 break;
             case R.id.btnCari:
