@@ -19,6 +19,23 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:color/transparent" />
 
+    <TextView
+        android:id="@+id/txtRankNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/readable_background"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="1"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/imgAnime"
+        app:layout_constraintTop_toTopOf="@+id/imgAnime" />
+
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="0dp"
@@ -85,6 +102,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="type"
+        android:textColor="@android:color/black"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/txtTitle"
         app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
 
@@ -94,6 +113,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="2010-2015"
+        android:textColor="@android:color/black"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/txtType"
         app:layout_constraintTop_toBottomOf="@+id/txtType"

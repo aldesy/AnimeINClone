@@ -34,7 +34,7 @@ public class TopAnimeResult {
     private String airing_start;
     @SerializedName("airing_end")
     @Expose
-    private Object airing_end;
+    private String airing_end;
     @SerializedName("episodes")
     @Expose
     private Integer episodes;
@@ -104,6 +104,7 @@ public class TopAnimeResult {
     }
 
     public String getAiring_start() {
+        if(airing_start==null) airing_start = "?";
         return airing_start;
     }
 
@@ -111,11 +112,12 @@ public class TopAnimeResult {
         this.airing_start = airing_start;
     }
 
-    public Object getAiring_end() {
+    public String getAiring_end() {
+        if(airing_end==null) airing_end = "?";
         return airing_end;
     }
 
-    public void setAiring_end(Object airing_end) {
+    public void setAiring_end(String airing_end) {
         this.airing_end = airing_end;
     }
 

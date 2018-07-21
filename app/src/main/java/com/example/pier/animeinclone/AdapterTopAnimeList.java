@@ -54,7 +54,7 @@ public class AdapterTopAnimeList extends RecyclerView.Adapter<AdapterTopAnimeLis
         myViewHolder.txtType.setText(info);
         info = mal.getAiring_start()+" - "+mal.getAiring_end();
         myViewHolder.txtAiring.setText(info);
-
+        myViewHolder.txtRankNum.setText(mal.getRank().toString());
     }
 
     @Override
@@ -74,6 +74,8 @@ public class AdapterTopAnimeList extends RecyclerView.Adapter<AdapterTopAnimeLis
         ConstraintLayout mainLayout;
         @BindView(R.id.imgAnime)
         ImageView imgAnime;
+        @BindView(R.id.txtRankNum)
+        TextView txtRankNum;
         @BindView(R.id.txtTitle)
         TextView txtTitle;
         @BindView(R.id.txtScore)
