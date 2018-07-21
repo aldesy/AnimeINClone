@@ -33,7 +33,7 @@
 
         <me.zhanghai.android.materialratingbar.MaterialRatingBar
             android:id="@+id/ratingBar"
-            style="@style/MRatingBarStyle"
+            style="@style/MRatingBarSmall"
             app:mrb_progressTint="@color/starActivated"
             app:mrb_progressBackgroundTint="@color/starNormal"
             app:mrb_fillBackgroundStars="true"

@@ -43,7 +43,7 @@
         <item name="android:scrollbarDefaultDelayBeforeFade">0</item>
     </style>
 
-    <style name="MRatingBarStyle" parent="Widget.MaterialRatingBar.RatingBar.Indicator.Small">
+    <style name="MRatingBarSmall" parent="Widget.MaterialRatingBar.RatingBar.Indicator.Small">
         <!--<item name="colorControlNormal">@color/starNormal</item>-->
         <!--<item name="colorControlActivated">@color/starActivated</item>-->
     </style>
