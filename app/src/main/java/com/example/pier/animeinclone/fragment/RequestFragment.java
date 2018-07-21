@@ -76,6 +76,9 @@ public class RequestFragment extends Fragment implements AnimeCallback {
     Button btnCari;
     @BindView(R.id.btnTop)
     Button btnTop;
+    @BindView(R.id.txtLoading)
+    public
+    TextView txtLoading;
 
 
     // TODO: Rename and change types of parameters
@@ -124,6 +127,7 @@ public class RequestFragment extends Fragment implements AnimeCallback {
                 getResources().getColor(R.color.progressColor),
                 PorterDuff.Mode.SRC_IN);
 
+        txtLoading.setVisibility(View.GONE);
         recyclerMal.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
         setVisibilitySearch(View.GONE);
@@ -139,7 +143,7 @@ public class RequestFragment extends Fragment implements AnimeCallback {
             }
         });
 
-        topAnimeHelper = new TopAnimeHelper(context,this);
+        topAnimeHelper = new TopAnimeHelper(context, this);
         topAnimeHelper.showTopAnime();
         return view;
     }
@@ -162,6 +166,7 @@ public class RequestFragment extends Fragment implements AnimeCallback {
             isBusy = true;
             recyclerMal.setVisibility(View.GONE);
             progressBar.setVisibility(View.VISIBLE);
+            txtLoading.setVisibility(View.VISIBLE);
             String BASE_URL = "https://api.jikan.moe/";
             MyAnimeListAPI service = RetrofitClientInstance.getRetrofitMALInstance(BASE_URL).create(MyAnimeListAPI.class);
 
@@ -174,6 +179,7 @@ public class RequestFragment extends Fragment implements AnimeCallback {
                         MALResponse res = response.body();
                         if (res.getRequest_hash() != null && res.getResult().size() > 0) {
                             progressBar.setVisibility(View.GONE);
+                            txtLoading.setVisibility(View.GONE);
                             listSearch = new ArrayList<>(res.getResult());
                             recycle();
                         }
@@ -184,6 +190,7 @@ public class RequestFragment extends Fragment implements AnimeCallback {
 
                 @Override
                 public void onFailure(@NonNull Call<MALResponse> call, @NonNull Throwable t) {
+                    txtLoading.setVisibility(View.GONE);
                     progressBar.setVisibility(View.GONE);
                     t.printStackTrace();
                 }
@@ -253,8 +260,8 @@ public class RequestFragment extends Fragment implements AnimeCallback {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnPencarian:
-                if(!isBusy)
-                toggleSearch();
+                if (!isBusy)
+                    toggleSearch();
                 break;
             case R.id.btnCari:
                 searchMyAnimelist();

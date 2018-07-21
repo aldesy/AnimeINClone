@@ -38,6 +38,7 @@ public class TopAnimeHelper implements AnimeCallback{
         if(rf.isBusy)
             return;
         rf.isBusy = true;
+        rf.txtLoading.setVisibility(View.VISIBLE);
         rf.recyclerMal.setVisibility(View.GONE);
         rf.progressBar.setVisibility(View.VISIBLE);
         String BASE_URL = "https://api.jikan.moe/";
@@ -50,12 +51,14 @@ public class TopAnimeHelper implements AnimeCallback{
                 try {
                     MALTopAnimeResponse res = response.body();
                     if (res.getRequest_hash() != null && res.getTop().size() > 0) {
+                        rf.txtLoading.setVisibility(View.GONE);
                         rf.progressBar.setVisibility(View.GONE);
                         listTopAnime = new ArrayList<>(res.getTop());
                         recycle();
                         rf.isBusy = false;
                     }
                 } catch (Exception e) {
+                    rf.txtLoading.setVisibility(View.GONE);
                     rf.progressBar.setVisibility(View.GONE);
                     rf.isBusy = false;
                     showTopAnime();
@@ -65,6 +68,7 @@ public class TopAnimeHelper implements AnimeCallback{
 
             @Override
             public void onFailure(@NonNull Call<MALTopAnimeResponse> call, @NonNull Throwable t) {
+                rf.txtLoading.setVisibility(View.GONE);
                 rf.progressBar.setVisibility(View.GONE);
                 rf.isBusy = false;
                 t.printStackTrace();
