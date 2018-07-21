@@ -78,6 +78,7 @@ public class RequestFragment extends Fragment implements AnimeCallback {
     private boolean isSearching;
     private InputMethodManager inputMethodManager;
     private AdapterMyAnimeList mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     public RequestFragment() {
         // Required empty public constructor
@@ -172,7 +173,7 @@ public class RequestFragment extends Fragment implements AnimeCallback {
 
                 @Override
                 public void onFailure(@NonNull Call<MALResponse> call, @NonNull Throwable t) {
-                    Log.e("GAGAL", "asd");
+                    progressBar.setVisibility(View.GONE);
                     t.printStackTrace();
                 }
             });
@@ -189,10 +190,9 @@ public class RequestFragment extends Fragment implements AnimeCallback {
 
     private void recycle() {
         if (mAdapter == null) {
-            recyclerMal.setNestedScrollingEnabled(false);
 
             mAdapter = new AdapterMyAnimeList(listSearch, context, this);
-            RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(context, 3);
+            mLayoutManager = new GridLayoutManager(context, 3);
 
             recyclerMal.setLayoutManager(mLayoutManager);
             recyclerMal.setItemAnimator(new DefaultItemAnimator());
@@ -203,6 +203,7 @@ public class RequestFragment extends Fragment implements AnimeCallback {
         }
 
         recyclerMal.setVisibility(View.VISIBLE);
+        mLayoutManager.smoothScrollToPosition(recyclerMal,null,0);
         isSearching = false;
     }
 
