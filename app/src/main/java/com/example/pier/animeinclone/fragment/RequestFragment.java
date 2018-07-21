@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.example.pier.animeinclone.AdapterMyAnimeList;
 import com.example.pier.animeinclone.R;
 import com.example.pier.animeinclone.RetrofitClientInstance;
+import com.example.pier.animeinclone.helper.TopAnimeHelper;
 import com.example.pier.animeinclone.interfaces.MyAnimeListAPI;
 import com.example.pier.animeinclone.models.AnimeCallback;
 import com.example.pier.animeinclone.models.MALResponse;
@@ -71,6 +72,8 @@ public class RequestFragment extends Fragment implements AnimeCallback {
     Button btnPencarian;
     @BindView(R.id.btnCari)
     Button btnCari;
+    @BindView(R.id.btnTop)
+    Button btnTop;
 
 
     // TODO: Rename and change types of parameters
@@ -251,10 +254,18 @@ public class RequestFragment extends Fragment implements AnimeCallback {
                 toggleSearch();
                 break;
             case R.id.btnCari:
+                searchMyAnimelist();
+                break;
+            case R.id.btnTop:
+                handleTopAnime();
                 break;
         }
     }
 
+    private void handleTopAnime() {
+        TopAnimeHelper topAnimeHelper = new TopAnimeHelper();
+        topAnimeHelper.showTopAnime();
+    }
 
 
     /**
@@ -279,7 +290,5 @@ public class RequestFragment extends Fragment implements AnimeCallback {
         inputMethodManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
     }
 
-    public boolean isTxtSearchHasFocus() {
-        return txtSearch.hasFocus();
-    }
+
 }
