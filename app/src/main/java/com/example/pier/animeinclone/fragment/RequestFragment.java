@@ -85,7 +85,7 @@ public class RequestFragment extends Fragment implements AnimeCallback {
     private List<MALResult> listSearch;
     private OnFragmentInteractionListener mListener;
     private Context context;
-    public boolean isSearching;
+    public boolean isBusy;
     private InputMethodManager inputMethodManager;
     private AdapterMyAnimeList mAdapter;
     public RecyclerView.LayoutManager mLayoutManager;
@@ -155,10 +155,10 @@ public class RequestFragment extends Fragment implements AnimeCallback {
 
     private void searchMyAnimelist() {
         String searchtext = txtSearch.getText().toString();
-        if (!isSearching && searchtext.length() >= 3) {
+        if (!isBusy && searchtext.length() >= 3) {
             removeTxtFocus();
             hideKeyboard();
-            isSearching = true;
+            isBusy = true;
             recyclerMal.setVisibility(View.GONE);
             progressBar.setVisibility(View.VISIBLE);
             String BASE_URL = "https://api.jikan.moe/";
@@ -216,7 +216,7 @@ public class RequestFragment extends Fragment implements AnimeCallback {
 
         recyclerMal.setVisibility(View.VISIBLE);
         mLayoutManager.smoothScrollToPosition(recyclerMal, null, 0);
-        isSearching = false;
+        isBusy = false;
     }
 
     @Override
@@ -252,13 +252,14 @@ public class RequestFragment extends Fragment implements AnimeCallback {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnPencarian:
-                if(!isSearching)
+                if(!isBusy)
                 toggleSearch();
                 break;
             case R.id.btnCari:
                 searchMyAnimelist();
                 break;
             case R.id.btnTop:
+                setVisibilitySearch(View.GONE);
                 handleTopAnime();
                 break;
         }

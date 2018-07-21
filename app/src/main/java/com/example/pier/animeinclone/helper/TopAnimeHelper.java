@@ -5,14 +5,12 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.pier.animeinclone.AdapterTopAnimeList;
 import com.example.pier.animeinclone.RetrofitClientInstance;
 import com.example.pier.animeinclone.fragment.RequestFragment;
 import com.example.pier.animeinclone.interfaces.MyAnimeListAPI;
 import com.example.pier.animeinclone.models.AnimeCallback;
-import com.example.pier.animeinclone.models.MALResponse;
 import com.example.pier.animeinclone.models.MALTopAnimeResponse;
 import com.example.pier.animeinclone.models.TopAnimeResult;
 
@@ -37,9 +35,9 @@ public class TopAnimeHelper implements AnimeCallback{
 
     public void showTopAnime()
     {
-        if(rf.isSearching)
+        if(rf.isBusy)
             return;
-        rf.isSearching = true;
+        rf.isBusy = true;
         rf.recyclerMal.setVisibility(View.GONE);
         rf.progressBar.setVisibility(View.VISIBLE);
         String BASE_URL = "https://api.jikan.moe/";
@@ -55,9 +53,11 @@ public class TopAnimeHelper implements AnimeCallback{
                         rf.progressBar.setVisibility(View.GONE);
                         listTopAnime = new ArrayList<>(res.getTop());
                         recycle();
+                        rf.isBusy = false;
                     }
                 } catch (Exception e) {
                     rf.progressBar.setVisibility(View.GONE);
+                    rf.isBusy = false;
                     e.printStackTrace();
                 }
             }
