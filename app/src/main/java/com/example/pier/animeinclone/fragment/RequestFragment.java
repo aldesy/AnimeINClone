@@ -83,21 +83,11 @@ public class RequestFragment extends Fragment implements AnimeCallback {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RequestFragment.
-     */
+
+
     // TODO: Rename and change types and number of parameters
-    public static RequestFragment newInstance(String param1, String param2) {
+    public static RequestFragment newInstance() {
         RequestFragment fragment = new RequestFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -105,8 +95,6 @@ public class RequestFragment extends Fragment implements AnimeCallback {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -155,9 +143,9 @@ public class RequestFragment extends Fragment implements AnimeCallback {
 
 
     private void searchMyAnimelist() {
-        removeTxtFocus();
         String searchtext = txtSearch.getText().toString();
         if (!isSearching && searchtext.length() >= 3) {
+            removeTxtFocus();
             hideKeyboard();
             isSearching = true;
             recyclerMal.setVisibility(View.GONE);
@@ -191,11 +179,11 @@ public class RequestFragment extends Fragment implements AnimeCallback {
         }
     }
 
-    private void removeTxtFocus() {
+    public void removeTxtFocus() {
         parentConstraintLayout.requestFocus();
     }
 
-    private void hideKeyboard() {
+    public void hideKeyboard() {
         inputMethodManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
     }
 
@@ -278,5 +266,10 @@ public class RequestFragment extends Fragment implements AnimeCallback {
         super.onActivityCreated(savedInstanceState);
         inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+    }
+
+    public boolean isTxtSearchHasFocus()
+    {
+        return txtSearch.hasFocus();
     }
 }

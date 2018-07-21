@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements
                     loadFragment(searchFragment);
                     return true;
                 case R.id.navigation_request:
-                    if(requestFragment == null) requestFragment = RequestFragment.newInstance("","");
+                    if(requestFragment == null) requestFragment = RequestFragment.newInstance();
                     loadFragment(requestFragment);
                     return true;
                 case R.id.navigation_profile:
