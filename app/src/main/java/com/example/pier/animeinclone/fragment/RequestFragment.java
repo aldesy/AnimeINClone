@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,8 +40,7 @@ public class RequestFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    @BindView(R.id.txtLoading)
-    TextView txtLoading;
+
     Unbinder unbinder;
 
     // TODO: Rename and change types of parameters
@@ -89,7 +89,6 @@ public class RequestFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_request, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        searchMyAnimelist();
         return view;
     }
 
@@ -97,17 +96,17 @@ public class RequestFragment extends Fragment {
     private void searchMyAnimelist() {
 
         String BASE_URL = "https://api.jikan.moe/";
-        MyAnimeListAPI service = RetrofitClientInstance.getRetrofitInstance(BASE_URL).create(MyAnimeListAPI.class);
+        MyAnimeListAPI service = RetrofitClientInstance.getRetrofitMALInstance(BASE_URL).create(MyAnimeListAPI.class);
 
         Call<MALResponse> responseCall = service.searchAnime("One",1);
         responseCall.enqueue(new Callback<MALResponse>() {
             @Override
             public void onResponse(@NonNull Call<MALResponse> call, @NonNull Response<MALResponse> response) {
+                Log.e("MASUK","asd");
                 try {
                     MALResponse res = response.body();
                     if (res.getRequest_hash() != null && res.getResult().size() > 0) {
                         listSearch = new ArrayList<>(res.getResult());
-                        txtLoading.setText(listSearch.get(0).getTitle());
                     }
                 }catch (Exception e){
                     e.printStackTrace();
@@ -116,6 +115,7 @@ public class RequestFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<MALResponse> call, @NonNull Throwable t) {
+                Log.e("GAGAL","asd");
                 t.printStackTrace();
             }
         });

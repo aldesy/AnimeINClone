@@ -8,19 +8,33 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClientInstance {
 
-    private static Retrofit retrofit;
+    private static Retrofit retrofitAnime;
+    private static Retrofit retrofitMAL;
    // private static final String BASE_URL = "https://api.anime.aldesy.me/app2/API/";
 
     public static Retrofit getRetrofitInstance(String BASE_URL) {
-        if (retrofit == null) {
+        if (retrofitAnime == null) {
             Gson gson = new GsonBuilder()
                     .setLenient()
                     .create();
-            retrofit = new retrofit2.Retrofit.Builder()
+            retrofitAnime = new retrofit2.Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
         }
-        return retrofit;
+        return retrofitAnime;
+    }
+
+    public static Retrofit getRetrofitMALInstance(String BASE_URL) {
+        if (retrofitMAL == null) {
+            Gson gson = new GsonBuilder()
+                    .setLenient()
+                    .create();
+            retrofitMAL = new retrofit2.Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .build();
+        }
+        return retrofitMAL;
     }
 }
