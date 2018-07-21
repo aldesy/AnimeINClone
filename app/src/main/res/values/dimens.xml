@@ -10,4 +10,5 @@
 
     <dimen name="divider_1">5dp</dimen>
     <dimen name="divider_2">8dp</dimen>
+    <dimen name="request_fragment_title_height">45dp</dimen>
 </resources>

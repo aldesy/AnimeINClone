@@ -6,4 +6,6 @@
     <string name="label5">Genre</string>
     <string name="label6">Tahun</string>
     <string name="label7">Ongoing</string>
+    <string name="request_fragment_title">Request Dari MyAnimeList</string>
+    <string name="cari_anime">Cari Anime</string>
 </resources>
