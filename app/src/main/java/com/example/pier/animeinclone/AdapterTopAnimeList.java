@@ -50,6 +50,11 @@ public class AdapterTopAnimeList extends RecyclerView.Adapter<AdapterTopAnimeLis
         Picasso.with(context).load(mal.getImage_url()).into(myViewHolder.imgAnime);
         myViewHolder.txtTitle.setText(mal.getTitle());
         myViewHolder.txtScore.setText(mal.getScore()+"/10");
+        String info = mal.getType()+", "+mal.getEpisodes().toString()+" Eps";
+        myViewHolder.txtType.setText(info);
+        info = mal.getAiring_start()+" - "+mal.getAiring_end();
+        myViewHolder.txtAiring.setText(info);
+
     }
 
     @Override
@@ -73,6 +78,10 @@ public class AdapterTopAnimeList extends RecyclerView.Adapter<AdapterTopAnimeLis
         TextView txtTitle;
         @BindView(R.id.txtScore)
         TextView txtScore;
+        @BindView(R.id.txtType)
+        TextView txtType;
+        @BindView(R.id.txtAiring)
+        TextView txtAiring;
         @BindView(R.id.ratingBar)
         RatingBar ratingBar;
 
