@@ -26,7 +26,7 @@
         <ImageView
             android:layout_width="0dp"
             android:layout_height="53dp"
-            android:background="#7a000000"
+            android:background="@color/readable_background"
             app:layout_constraintBottom_toBottomOf="@+id/img"
             app:layout_constraintLeft_toLeftOf="@+id/img"
             app:layout_constraintRight_toRightOf="@+id/img" />

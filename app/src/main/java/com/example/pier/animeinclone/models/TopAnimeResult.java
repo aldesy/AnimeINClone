@@ -25,7 +25,7 @@ public class TopAnimeResult {
     private String type;
     @SerializedName("score")
     @Expose
-    private Double score;
+    private float score;
     @SerializedName("members")
     @Expose
     private Integer members;
@@ -87,11 +87,11 @@ public class TopAnimeResult {
         this.type = type;
     }
 
-    public Double getScore() {
+    public float getScore() {
         return score;
     }
 
-    public void setScore(Double score) {
+    public void setScore(float score) {
         this.score = score;
     }
 

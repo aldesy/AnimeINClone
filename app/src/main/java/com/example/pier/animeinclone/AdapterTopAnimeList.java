@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.pier.animeinclone.models.AnimeCallback;
@@ -48,6 +49,7 @@ public class AdapterTopAnimeList extends RecyclerView.Adapter<AdapterTopAnimeLis
         TopAnimeResult mal = topAnimeList.get(i);
         Picasso.with(context).load(mal.getImage_url()).into(myViewHolder.imgAnime);
         myViewHolder.txtTitle.setText(mal.getTitle());
+        myViewHolder.txtScore.setText(mal.getScore()+"/10");
     }
 
     @Override
@@ -69,6 +71,10 @@ public class AdapterTopAnimeList extends RecyclerView.Adapter<AdapterTopAnimeLis
         ImageView imgAnime;
         @BindView(R.id.txtTitle)
         TextView txtTitle;
+        @BindView(R.id.txtScore)
+        TextView txtScore;
+        @BindView(R.id.ratingBar)
+        RatingBar ratingBar;
 
         private MyViewHolder(View view) {
             super(view);

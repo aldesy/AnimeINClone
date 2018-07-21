@@ -140,6 +140,7 @@ public class RequestFragment extends Fragment implements AnimeCallback {
         });
 
         topAnimeHelper = new TopAnimeHelper(context,this);
+        topAnimeHelper.showTopAnime();
         return view;
     }
 

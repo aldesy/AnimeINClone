@@ -17,4 +17,5 @@
 
     <color name="list_episode_background">#00ffffff</color>
     <color name="progressColor">#448aff</color>
+    <color name="readable_background">#7a000000</color>
 </resources>
