@@ -87,6 +87,7 @@ public class RequestFragment extends Fragment implements AnimeCallback {
     private InputMethodManager inputMethodManager;
     private AdapterMyAnimeList mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private TopAnimeHelper topAnimeHelper;
 
     public RequestFragment() {
         // Required empty public constructor
@@ -115,6 +116,8 @@ public class RequestFragment extends Fragment implements AnimeCallback {
         unbinder = ButterKnife.bind(this, view);
 
         context = getActivity();
+        topAnimeHelper = new TopAnimeHelper(context,this);
+
         progressBar.getIndeterminateDrawable().setColorFilter(
                 getResources().getColor(R.color.progressColor),
                 PorterDuff.Mode.SRC_IN);
@@ -211,13 +214,6 @@ public class RequestFragment extends Fragment implements AnimeCallback {
         isSearching = false;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -263,7 +259,6 @@ public class RequestFragment extends Fragment implements AnimeCallback {
     }
 
     private void handleTopAnime() {
-        TopAnimeHelper topAnimeHelper = new TopAnimeHelper();
         topAnimeHelper.showTopAnime();
     }
 

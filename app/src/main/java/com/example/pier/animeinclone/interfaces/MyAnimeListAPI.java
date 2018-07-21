@@ -11,4 +11,8 @@ public interface MyAnimeListAPI {
     Call<MALResponse> searchAnime(
             @Path("query") String query,
             @Path("page") int page);
+
+    @GET("top/anime/{page}/airing")
+    Call<MALResponse> getTopAnime(
+            @Path("page") int page);
 }
