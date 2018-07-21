@@ -5,6 +5,7 @@ import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -20,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pier.animeinclone.AdapterMyAnimeList;
 import com.example.pier.animeinclone.R;
@@ -63,6 +65,8 @@ public class RequestFragment extends Fragment implements AnimeCallback {
     RecyclerView recyclerMal;
     @BindView(R.id.txtSearch)
     EditText txtSearch;
+    @BindView(R.id.parentConstraintLayout)
+    ConstraintLayout parentConstraintLayout;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -73,6 +77,7 @@ public class RequestFragment extends Fragment implements AnimeCallback {
     private Context context;
     private boolean isSearching;
     private InputMethodManager inputMethodManager;
+    private AdapterMyAnimeList mAdapter;
 
     public RequestFragment() {
         // Required empty public constructor
@@ -131,15 +136,29 @@ public class RequestFragment extends Fragment implements AnimeCallback {
                 return false;
             }
         });
+
+        txtSearch.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    //  txtSearch.setCursorVisible(true);
+               //     Toast.makeText(context, "Got the focus", Toast.LENGTH_LONG).show();
+                } else {
+                    // txtSearch.setCursorVisible(false);
+               //     Toast.makeText(context, "Lost the focus", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
         return view;
     }
 
 
     private void searchMyAnimelist() {
+        removeTxtFocus();
         String searchtext = txtSearch.getText().toString();
-        if(!isSearching && searchtext.length() >= 3)
-        {
-            inputMethodManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+        if (!isSearching && searchtext.length() >= 3) {
+            hideKeyboard();
             isSearching = true;
             recyclerMal.setVisibility(View.GONE);
             progressBar.setVisibility(View.VISIBLE);
@@ -172,22 +191,28 @@ public class RequestFragment extends Fragment implements AnimeCallback {
         }
     }
 
+    private void removeTxtFocus() {
+        parentConstraintLayout.requestFocus();
+    }
+
+    private void hideKeyboard() {
+        inputMethodManager.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+    }
+
     private void recycle() {
-        //if(recyclerMal.getAdapter() == null)
-        //{
+        if (mAdapter == null) {
             recyclerMal.setNestedScrollingEnabled(false);
 
-            AdapterMyAnimeList mAdapter = new AdapterMyAnimeList(listSearch, context, this);
+            mAdapter = new AdapterMyAnimeList(listSearch, context, this);
             RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(context, 3);
 
             recyclerMal.setLayoutManager(mLayoutManager);
             recyclerMal.setItemAnimator(new DefaultItemAnimator());
             recyclerMal.setAdapter(mAdapter);
-       // }
-      //  else
-      //  {
-       //     recyclerMal.getAdapter().notifyDataSetChanged();
-      //  }
+        } else {
+            mAdapter.setMyanimeList(listSearch);
+            mAdapter.notifyDataSetChanged();
+        }
 
         recyclerMal.setVisibility(View.VISIBLE);
         isSearching = false;

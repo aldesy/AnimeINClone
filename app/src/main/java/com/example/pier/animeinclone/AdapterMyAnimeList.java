@@ -75,4 +75,8 @@ public class AdapterMyAnimeList extends RecyclerView.Adapter<AdapterMyAnimeList.
             ButterKnife.bind(this, view);
         }
     }
+
+    public void setMyanimeList(List<MALResult> myanimeList) {
+        this.myanimeList = myanimeList;
+    }
 }
