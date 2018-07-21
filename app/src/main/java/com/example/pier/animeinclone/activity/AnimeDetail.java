@@ -6,17 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.pier.animeinclone.AdapterListEpisode;
-import com.example.pier.animeinclone.AnimeInterface;
+import com.example.pier.animeinclone.interfaces.AnimeInterface;
 import com.example.pier.animeinclone.R;
 import com.example.pier.animeinclone.RetrofitClientInstance;
-import com.example.pier.animeinclone.SpanningLinearLayoutManager;
 import com.example.pier.animeinclone.models.AnimeCallback;
 import com.example.pier.animeinclone.models.Animes;
 import com.example.pier.animeinclone.models.Result;
@@ -67,7 +64,8 @@ public class AnimeDetail extends AppCompatActivity implements AnimeCallback<Stri
 
     private void getAnimeByID(final int animeid) {
 
-        AnimeInterface service = RetrofitClientInstance.getRetrofitInstance().create(AnimeInterface.class);
+        String BASE_URL = "https://api.anime.aldesy.me/app2/API/";
+        AnimeInterface service = RetrofitClientInstance.getRetrofitInstance(BASE_URL).create(AnimeInterface.class);
 
         Call<Result> result = service.getAnimeByID(animeid);
         result.enqueue(new Callback<Result>() {

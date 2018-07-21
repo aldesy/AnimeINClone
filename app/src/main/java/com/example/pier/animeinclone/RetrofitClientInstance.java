@@ -9,9 +9,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClientInstance {
 
     private static Retrofit retrofit;
-    private static final String BASE_URL = "https://api.anime.aldesy.me/app2/API/";
+   // private static final String BASE_URL = "https://api.anime.aldesy.me/app2/API/";
 
-    public static Retrofit getRetrofitInstance() {
+    public static Retrofit getRetrofitInstance(String BASE_URL) {
         if (retrofit == null) {
             Gson gson = new GsonBuilder()
                     .setLenient()

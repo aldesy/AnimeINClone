@@ -7,28 +7,20 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.pier.animeinclone.activity.AnimeDetail;
-import com.example.pier.animeinclone.models.Anime;
+import com.example.pier.animeinclone.interfaces.AnimeInterface;
 import com.example.pier.animeinclone.models.AnimeCallback;
 import com.example.pier.animeinclone.models.Animes;
 import com.example.pier.animeinclone.models.Result;
-import com.google.android.flexbox.FlexDirection;
-import com.google.android.flexbox.FlexWrap;
-import com.google.android.flexbox.FlexboxLayoutManager;
-import com.google.android.flexbox.JustifyContent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -105,7 +97,8 @@ public class HomeFragment extends Fragment implements AnimeCallback<Integer> {
 
     private void getAllAnimes() {
 
-        AnimeInterface service = RetrofitClientInstance.getRetrofitInstance().create(AnimeInterface.class);
+        String BASE_URL = "https://api.anime.aldesy.me/app2/API/";
+        AnimeInterface service = RetrofitClientInstance.getRetrofitInstance(BASE_URL).create(AnimeInterface.class);
 
         Call<Result> result = service.getResultInfo();
         result.enqueue(new Callback<Result>() {

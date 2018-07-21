@@ -1,4 +1,4 @@
-package com.example.pier.animeinclone;
+package com.example.pier.animeinclone.interfaces;
 
 import com.example.pier.animeinclone.models.Result;
 

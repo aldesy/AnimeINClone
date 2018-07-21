@@ -11,15 +11,19 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.pier.animeinclone.fragment.RequestFragment;
+
 public class MainActivity extends AppCompatActivity implements
         HomeFragment.OnFragmentInteractionListener,
         SearchFragment.OnFragmentInteractionListener,
-        ScheduleFragment.OnFragmentInteractionListener{
+        ScheduleFragment.OnFragmentInteractionListener,
+        RequestFragment.OnFragmentInteractionListener{
 
     private Fragment homeFragment;
     private Fragment searchFragment;
     private Fragment scheduleFragment;
     private Fragment currentFragment;
+    private Fragment requestFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +35,6 @@ public class MainActivity extends AppCompatActivity implements
         navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
 
         homeFragment = HomeFragment.newInstance("","");
-        searchFragment = SearchFragment.newInstance("","");
-        scheduleFragment = ScheduleFragment.newInstance("","");
         loadFragment(homeFragment);
     }
 
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements
     {
         ((HomeFragment)homeFragment).OnClickListItem(3);
     }
+
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if(!fragment.isAdded())
@@ -80,23 +83,22 @@ public class MainActivity extends AppCompatActivity implements
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.navigation_beranda:
-                    fragment = homeFragment;
-                    loadFragment(fragment);
+                    if(homeFragment == null)  homeFragment = HomeFragment.newInstance("","");
+                    loadFragment(homeFragment);
                     return true;
                 case R.id.navigation_cari:
-                    fragment = searchFragment;
-                    loadFragment(fragment);
+                    if(searchFragment == null) searchFragment = SearchFragment.newInstance("","");
+                    loadFragment(searchFragment);
                     return true;
-                case R.id.navigation_schedule:
-                    fragment = scheduleFragment;
-                    loadFragment(fragment);
+                case R.id.navigation_request:
+                    if(requestFragment == null) requestFragment = RequestFragment.newInstance("","");
+                    loadFragment(requestFragment);
                     return true;
                 case R.id.navigation_profile:
-                    fragment = searchFragment;
-                    loadFragment(fragment);
+                    if(searchFragment == null) searchFragment = SearchFragment.newInstance("","");
+                    loadFragment(searchFragment);
                     return true;
             }
 
