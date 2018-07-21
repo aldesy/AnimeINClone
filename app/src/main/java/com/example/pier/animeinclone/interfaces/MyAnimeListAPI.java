@@ -1,6 +1,7 @@
 package com.example.pier.animeinclone.interfaces;
 
 import com.example.pier.animeinclone.models.MALResponse;
+import com.example.pier.animeinclone.models.MALTopAnimeResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -13,6 +14,6 @@ public interface MyAnimeListAPI {
             @Path("page") int page);
 
     @GET("top/anime/{page}/airing")
-    Call<MALResponse> getTopAnime(
+    Call<MALTopAnimeResponse> getTopAnime(
             @Path("page") int page);
 }

@@ -58,9 +58,11 @@ public class RequestFragment extends Fragment implements AnimeCallback {
 
     Unbinder unbinder;
     @BindView(R.id.progressBar)
+    public
     ProgressBar progressBar;
 
     @BindView(R.id.recyclerMal)
+    public
     RecyclerView recyclerMal;
     @BindView(R.id.txtSearch)
     EditText txtSearch;
@@ -86,7 +88,7 @@ public class RequestFragment extends Fragment implements AnimeCallback {
     private boolean isSearching;
     private InputMethodManager inputMethodManager;
     private AdapterMyAnimeList mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    public RecyclerView.LayoutManager mLayoutManager;
     private TopAnimeHelper topAnimeHelper;
 
     public RequestFragment() {
@@ -116,7 +118,7 @@ public class RequestFragment extends Fragment implements AnimeCallback {
         unbinder = ButterKnife.bind(this, view);
 
         context = getActivity();
-        topAnimeHelper = new TopAnimeHelper(context,this);
+
 
         progressBar.getIndeterminateDrawable().setColorFilter(
                 getResources().getColor(R.color.progressColor),
@@ -137,6 +139,7 @@ public class RequestFragment extends Fragment implements AnimeCallback {
             }
         });
 
+        topAnimeHelper = new TopAnimeHelper(context,this);
         return view;
     }
 
@@ -196,18 +199,20 @@ public class RequestFragment extends Fragment implements AnimeCallback {
     }
 
     private void recycle() {
-        if (mAdapter == null) {
+        if (mAdapter == null || mLayoutManager == null) {
 
             mAdapter = new AdapterMyAnimeList(listSearch, context, this);
             mLayoutManager = new GridLayoutManager(context, 3);
 
             recyclerMal.setLayoutManager(mLayoutManager);
             recyclerMal.setItemAnimator(new DefaultItemAnimator());
-            recyclerMal.setAdapter(mAdapter);
-        } else {
-            mAdapter.setMyanimeList(listSearch);
-            mAdapter.notifyDataSetChanged();
+
         }
+
+        recyclerMal.setAdapter(mAdapter);
+        mAdapter.setMyanimeList(listSearch);
+        mAdapter.notifyDataSetChanged();
+
 
         recyclerMal.setVisibility(View.VISIBLE);
         mLayoutManager.smoothScrollToPosition(recyclerMal, null, 0);
@@ -243,7 +248,7 @@ public class RequestFragment extends Fragment implements AnimeCallback {
 
     }
 
-    @OnClick({R.id.btnPencarian, R.id.btnCari})
+    @OnClick({R.id.btnPencarian, R.id.btnCari, R.id.btnTop})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnPencarian:
