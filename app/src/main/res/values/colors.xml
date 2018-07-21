@@ -13,7 +13,7 @@
     <color name="anime_status_neg">#ff8548</color>
 
     <color name="starActivated">#eeff41</color>
-    <color name="starNormal">#ffffff</color>
+    <color name="starNormal">#a1ffffff</color>
 
     <color name="list_episode_background">#00ffffff</color>
 </resources>

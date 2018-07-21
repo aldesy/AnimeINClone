@@ -54,15 +54,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <RatingBar
+            <me.zhanghai.android.materialratingbar.MaterialRatingBar
                 android:id="@+id/ratingBar"
-                style="?android:attr/ratingBarStyleSmall"
+                style="@style/MRatingBarStyle"
+                app:mrb_progressTint="@color/starActivated"
+                app:mrb_progressBackgroundTint="@color/starNormal"
+                app:mrb_fillBackgroundStars="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:numStars="5"
                 android:rating="2.2"
                 android:stepSize="0"
-                android:theme="@style/RatingBarStyle"
                 app:layout_constraintLeft_toLeftOf="@+id/txtTitle"
                 app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
 

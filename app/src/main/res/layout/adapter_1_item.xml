@@ -31,19 +31,21 @@
             app:layout_constraintLeft_toLeftOf="@+id/img"
             app:layout_constraintRight_toRightOf="@+id/img" />
 
-        <RatingBar
+        <me.zhanghai.android.materialratingbar.MaterialRatingBar
             android:id="@+id/ratingBar"
-            style="?android:attr/ratingBarStyleSmall"
+            style="@style/MRatingBarStyle"
+            app:mrb_progressTint="@color/starActivated"
+            app:mrb_progressBackgroundTint="@color/starNormal"
+            app:mrb_fillBackgroundStars="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:numStars="5"
             android:rating="3"
-            android:stepSize="0.1"
-            android:theme="@style/RatingBarStyle"
             app:layout_constraintBottom_toTopOf="@+id/txtStatus"
             app:layout_constraintEnd_toEndOf="@+id/img"
-            app:layout_constraintStart_toStartOf="@+id/img" />
+            app:layout_constraintStart_toStartOf="@+id/img"
+            />
 
         <TextView
             android:id="@+id/txtStatus"
