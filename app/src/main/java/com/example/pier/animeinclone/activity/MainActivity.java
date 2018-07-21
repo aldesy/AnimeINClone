@@ -1,4 +1,4 @@
-package com.example.pier.animeinclone;
+package com.example.pier.animeinclone.activity;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -11,7 +11,11 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.pier.animeinclone.R;
+import com.example.pier.animeinclone.fragment.HomeFragment;
 import com.example.pier.animeinclone.fragment.RequestFragment;
+import com.example.pier.animeinclone.fragment.ScheduleFragment;
+import com.example.pier.animeinclone.fragment.SearchFragment;
 
 public class MainActivity extends AppCompatActivity implements
         HomeFragment.OnFragmentInteractionListener,

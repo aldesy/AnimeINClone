@@ -1,4 +1,4 @@
-package com.example.pier.animeinclone;
+package com.example.pier.animeinclone.fragment;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +16,11 @@ import android.view.ViewGroup;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.example.pier.animeinclone.AdapterType1;
+import com.example.pier.animeinclone.AdapterType2;
+import com.example.pier.animeinclone.R;
+import com.example.pier.animeinclone.RetrofitClientInstance;
+import com.example.pier.animeinclone.SpanningLinearLayoutManager;
 import com.example.pier.animeinclone.activity.AnimeDetail;
 import com.example.pier.animeinclone.interfaces.AnimeInterface;
 import com.example.pier.animeinclone.models.AnimeCallback;
